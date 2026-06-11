@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tile & Trace｜花磚流光</title>
+  <meta name="description" content="Tile & Trace — Taiwanese floral tiles, reimagined through light and glass. A frosted glass coaster collection." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ─── NAVIGATION ─────────────────────────────────────── -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#hero" class="nav__brand">Tile &amp; Trace</a>
+      <ul class="nav__links">
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#story">Story</a></li>
+        <li><a href="#packaging">Packaging</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="nav__cta">Contact Us</a>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="mobileMenu">
+      <a href="#collection">Collection</a>
+      <a href="#story">Story</a>
+      <a href="#packaging">Packaging</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ─── SECTION 01: HERO ──────────────────────────────── -->
+  <section class="hero" id="hero">
+    <div class="hero__glow hero__glow--blue"></div>
+    <div class="hero__glow hero__glow--coral"></div>
+
+    <div class="hero__content">
+      <p class="hero__label fade-up">花磚流光玻璃杯墊系列</p>
+      <h1 class="hero__title fade-up">Tile &amp; Trace</h1>
+      <p class="hero__tagline fade-up">Taiwanese floral tiles, reimagined through light and glass.</p>
+      <p class="hero__sub fade-up">A frosted glass coaster collection inspired by the visual memory of traditional Taiwanese floral tiles.</p>
+      <div class="hero__actions fade-up">
+        <a href="#collection" class="btn btn--primary">Explore Collection</a>
+        <a href="#contact" class="btn btn--ghost">Contact Us</a>
+      </div>
+    </div>
+
+    <div class="hero__visual fade-up">
+      <div class="hero__glass-frame">
+        <img src="assets/images/hero-product.jpg" alt="Tile & Trace glass coasters" class="hero__img" onerror="this.style.display='none';this.parentElement.classList.add('hero__glass-frame--placeholder')" />
+        <!-- SVG coaster placeholders shown when image is absent -->
+        <div class="hero__placeholder-coasters">
+          <div class="coaster-svg coaster-svg--blue"></div>
+          <div class="coaster-svg coaster-svg--coral"></div>
+          <div class="coaster-svg coaster-svg--green"></div>
+          <div class="coaster-svg coaster-svg--yellow"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__scroll-hint">
+      <span></span>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 02: VALUE ─────────────────────────────── -->
+  <section class="value" id="value">
+    <div class="container">
+      <p class="section-label fade-up">Why This Product</p>
+      <h2 class="section-title fade-up">A cultural object for everyday rituals.</h2>
+      <p class="section-intro fade-up">Tile &amp; Trace brings traditional Taiwanese floral tile memories into modern daily life through translucent glass, minimal patterns, and refined gift presentation.</p>
+      <div class="value__cards">
+        <div class="value__card fade-up" data-glow="#79B7D8">
+          <div class="value__icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/>
+              <circle cx="24" cy="24" r="12" stroke="currentColor" stroke-width="1"/>
+              <circle cx="24" cy="24" r="4" fill="currentColor" opacity="0.3"/>
+            </svg>
+          </div>
+          <h3>Frosted Glass Texture</h3>
+          <p>Soft translucent glass creates a light, delicate, and refined visual experience that shifts with every angle of light.</p>
+        </div>
+        <div class="value__card fade-up" data-glow="#D98372">
+          <div class="value__icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 4 L28 20 L44 20 L31 30 L35 46 L24 36 L13 46 L17 30 L4 20 L20 20 Z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+              <path d="M24 12 L26.5 20 L35 20 L28.5 25 L31 33 L24 28 L17 33 L19.5 25 L13 20 L21.5 20 Z" fill="currentColor" opacity="0.15"/>
+            </svg>
+          </div>
+          <h3>Taiwanese Tile Motif</h3>
+          <p>Traditional floral tile elements are carefully simplified into modern printed patterns — honoring history without reproducing it.</p>
+        </div>
+        <div class="value__card fade-up" data-glow="#8BAA78">
+          <div class="value__icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="8" width="32" height="32" rx="3" stroke="currentColor" stroke-width="1.2"/>
+              <rect x="14" y="14" width="20" height="20" rx="2" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2"/>
+              <path d="M20 24 L24 20 L28 24 L24 28 Z" fill="currentColor" opacity="0.3"/>
+            </svg>
+          </div>
+          <h3>Designed for Gifting</h3>
+          <p>Each coaster comes with a color-matched collectible box, making every piece a complete cultural gift object.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 03: COLLECTION PREVIEW ───────────────── -->
+  <section class="collection" id="collection">
+    <div class="container">
+      <p class="section-label fade-up">The Collection</p>
+      <h2 class="section-title fade-up">The Four Tile Memories</h2>
+      <p class="section-intro fade-up">Four translucent glass coasters, each carrying a different color, floral memory, and cultural meaning.</p>
+      <div class="collection__grid">
+        <div class="collection__item fade-up" data-color="#79B7D8" data-target="blue-begonia">
+          <div class="collection__img-wrap">
+            <img src="assets/images/blue-begonia.jpg" alt="Blue Begonia coaster"
+              onerror="this.style.display='none';this.parentElement.classList.add('img-placeholder','img-placeholder--blue')" />
+            <div class="collection__overlay">
+              <span>Explore</span>
+            </div>
+          </div>
+          <div class="collection__info">
+            <span class="collection__num">01</span>
+            <h3 class="collection__name">Blue Begonia</h3>
+            <p class="collection__cn">湛藍海棠</p>
+          </div>
+        </div>
+        <div class="collection__item fade-up" data-color="#D98372" data-target="prosperity-peony">
+          <div class="collection__img-wrap">
+            <img src="assets/images/prosperity-peony.jpg" alt="Prosperity Peony coaster"
+              onerror="this.style.display='none';this.parentElement.classList.add('img-placeholder','img-placeholder--coral')" />
+            <div class="collection__overlay">
+              <span>Explore</span>
+            </div>
+          </div>
+          <div class="collection__info">
+            <span class="collection__num">02</span>
+            <h3 class="collection__name">Prosperity Peony</h3>
+            <p class="collection__cn">富貴牡丹</p>
+          </div>
+        </div>
+        <div class="collection__item fade-up" data-color="#8BAA78" data-target="verdant-vine">
+          <div class="collection__img-wrap">
+            <img src="assets/images/verdant-vine.jpg" alt="Verdant Vine coaster"
+              onerror="this.style.display='none';this.parentElement.classList.add('img-placeholder','img-placeholder--green')" />
+            <div class="collection__overlay">
+              <span>Explore</span>
+            </div>
+          </div>
+          <div class="collection__info">
+            <span class="collection__num">03</span>
+            <h3 class="collection__name">Verdant Vine Blossom</h3>
+            <p class="collection__cn">青藤團花</p>
+          </div>
+        </div>
+        <div class="collection__item fade-up" data-color="#D8B45C" data-target="golden-apricot">
+          <div class="collection__img-wrap">
+            <img src="assets/images/golden-apricot.jpg" alt="Golden Apricot coaster"
+              onerror="this.style.display='none';this.parentElement.classList.add('img-placeholder','img-placeholder--yellow')" />
+            <div class="collection__overlay">
+              <span>Explore</span>
+            </div>
+          </div>
+          <div class="collection__info">
+            <span class="collection__num">04</span>
+            <h3 class="collection__name">Golden Apricot Bloom</h3>
+            <p class="collection__cn">金杏花窗</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 04: PINNED PRODUCT SHOWCASE ──────────── -->
+  <section class="showcase" id="showcase">
+    <div class="showcase__pin" id="showcasePin">
+      <div class="showcase__bg" id="showcaseBg"></div>
+      <div class="showcase__stage">
+        <div class="showcase__visual" id="showcaseVisual">
+          <!-- Product panels -->
+          <div class="showcase__panel active" data-index="0">
+            <div class="showcase__img-wrap">
+              <img src="assets/images/blue-begonia.jpg" alt="Blue Begonia"
+                onerror="this.style.display='none';this.parentElement.classList.add('img-placeholder','img-placeholder--blue')" />
+            </div>
+          </div>
+          <div class="showcase__panel" data-index="1">
+            <div class="showcase__img-wrap">
+              <img src="assets/images/prosperity-peony.jpg" alt="Prosperity Peony"
+                onerror="this.style.display='none';this.parentElement.classList.add('img-placeholder','img-placeholder--coral')" />
+            </div>
+          </div>
+          <div class="showcase__panel" data-index="2">
+            <div class="showcase__img-wrap">
+              <img src="assets/images/verdant-vine.jpg" alt="Verdant Vine"
+                onerror="this.style.display='none';this.parentElement.classList.add('img-placeholder','img-placeholder--green')" />
+            </div>
+          </div>
+          <div class="showcase__panel" data-index="3">
+            <div class="showcase__img-wrap">
+              <img src="assets/images/golden-apricot.jpg" alt="Golden Apricot"
+                onerror="this.style.display='none';this.parentElement.classList.add('img-placeholder','img-placeholder--yellow')" />
+            </div>
+          </div>
+        </div>
+
+        <div class="showcase__text" id="showcaseText">
+          <div class="showcase__indicator">
+            <span id="showcaseNum">01</span> <span class="showcase__sep">/</span> 04
+          </div>
+          <h2 class="showcase__name" id="showcaseName">Blue Begonia</h2>
+          <p class="showcase__cn" id="showcaseCn">湛藍海棠</p>
+          <p class="showcase__desc" id="showcaseDesc">A calm translucent blue glass coaster inspired by the classic begonia motif in Taiwanese floral tiles.</p>
+          <div class="showcase__dots">
+            <button class="showcase__dot active" data-slide="0" aria-label="Blue Begonia"></button>
+            <button class="showcase__dot" data-slide="1" aria-label="Prosperity Peony"></button>
+            <button class="showcase__dot" data-slide="2" aria-label="Verdant Vine"></button>
+            <button class="showcase__dot" data-slide="3" aria-label="Golden Apricot"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Scroll spacer for GSAP pinning -->
+    <div class="showcase__spacer" id="showcaseSpacer"></div>
+  </section>
+
+  <!-- ─── SECTION 05: CULTURAL STORY ───────────────────── -->
+  <section class="cultural" id="story">
+    <div class="cultural__pattern-bg"></div>
+    <div class="container">
+      <p class="section-label fade-up">Cultural Heritage</p>
+      <h2 class="section-title fade-up">From old-house tiles to modern glass objects.</h2>
+      <p class="section-intro fade-up">Traditional Taiwanese floral tiles often appear in old houses, carrying memories of home, craftsmanship, and local visual culture. Tile &amp; Trace does not directly reproduce these tiles. Instead, it extracts their floral motifs, symmetry, borders, and nostalgic colors, then reinterprets them through frosted translucent glass.</p>
+      <div class="cultural__steps">
+        <div class="cultural__step fade-up">
+          <div class="cultural__step-num">01</div>
+          <div class="cultural__step-line"></div>
+          <h3>Tile Motif</h3>
+          <p>Floral patterns and symmetrical tile compositions from old Taiwanese houses.</p>
+        </div>
+        <div class="cultural__step fade-up">
+          <div class="cultural__step-num">02</div>
+          <div class="cultural__step-line"></div>
+          <h3>Graphic Simplification</h3>
+          <p>Traditional decorative patterns are simplified into clean printed graphics.</p>
+        </div>
+        <div class="cultural__step fade-up">
+          <div class="cultural__step-num">03</div>
+          <div class="cultural__step-line"></div>
+          <h3>Frosted Glass</h3>
+          <p>The heavy ceramic feeling of old tiles is transformed into translucent glass.</p>
+        </div>
+        <div class="cultural__step fade-up">
+          <div class="cultural__step-num">04</div>
+          <div class="cultural__step-line"></div>
+          <h3>Everyday Object</h3>
+          <p>The tile memory becomes a functional and collectible coaster.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 06: MATERIAL & PACKAGING ─────────────── -->
+  <section class="packaging" id="packaging">
+    <div class="container">
+      <p class="section-label fade-up">Material &amp; Packaging</p>
+      <div class="packaging__layout">
+        <div class="packaging__material fade-up">
+          <h2 class="packaging__title">Frosted translucent glass with minimal printed tile motifs.</h2>
+          <p>The soft matte surface, polished rounded edges, and translucent color create a light-reflecting object that feels both delicate and functional.</p>
+          <div class="packaging__material-img">
+            <img src="assets/images/material-detail.jpg" alt="Material detail"
+              onerror="this.style.display='none';this.parentElement.classList.add('img-placeholder','img-placeholder--material')" />
+          </div>
+        </div>
+        <div class="packaging__boxes fade-up">
+          <h2 class="packaging__title">A box for each memory.</h2>
+          <p>Each coaster is paired with a color-matched rigid gift box. Gold foil stamping adds a refined collectible quality, turning each piece into a cultural gift object.</p>
+          <div class="packaging__box-grid">
+            <div class="packaging__box" data-name="Blue Begonia｜湛藍海棠">
+              <div class="packaging__box-inner packaging__box-inner--blue">
+                <img src="assets/images/packaging-blue.jpg" alt="Blue packaging"
+                  onerror="this.style.display='none';this.parentElement.classList.add('box-ph')" />
+                <div class="packaging__box-label">Blue Begonia</div>
+              </div>
+            </div>
+            <div class="packaging__box" data-name="Prosperity Peony｜富貴牡丹">
+              <div class="packaging__box-inner packaging__box-inner--coral">
+                <img src="assets/images/packaging-red.jpg" alt="Coral packaging"
+                  onerror="this.style.display='none';this.parentElement.classList.add('box-ph')" />
+                <div class="packaging__box-label">Prosperity Peony</div>
+              </div>
+            </div>
+            <div class="packaging__box" data-name="Verdant Vine Blossom｜青藤團花">
+              <div class="packaging__box-inner packaging__box-inner--green">
+                <img src="assets/images/packaging-green.jpg" alt="Green packaging"
+                  onerror="this.style.display='none';this.parentElement.classList.add('box-ph')" />
+                <div class="packaging__box-label">Verdant Vine</div>
+              </div>
+            </div>
+            <div class="packaging__box" data-name="Golden Apricot Bloom｜金杏花窗">
+              <div class="packaging__box-inner packaging__box-inner--yellow">
+                <img src="assets/images/packaging-yellow.jpg" alt="Yellow packaging"
+                  onerror="this.style.display='none';this.parentElement.classList.add('box-ph')" />
+                <div class="packaging__box-label">Golden Apricot</div>
+              </div>
+            </div>
+          </div>
+          <ul class="packaging__features">
+            <li>Color-matched rigid box</li>
+            <li>Gold foil stamped motif</li>
+            <li>Minimal product name</li>
+            <li>Collectible gift presentation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 07: INTERACTIVE PATTERN STORY ────────── -->
+  <section class="pattern-story" id="pattern-story">
+    <div class="container">
+      <p class="section-label fade-up">Pattern Stories</p>
+      <h2 class="section-title fade-up">Discover the pattern story behind each piece.</h2>
+      <p class="section-intro fade-up">Each coaster carries a visual memory from Taiwanese floral tiles. Select a piece to explore its motif, color, cultural meaning, and material transformation.</p>
+
+      <div class="pattern-story__tabs fade-up">
+        <button class="ps-tab active" data-product="blue-begonia">
+          <span class="ps-tab__dot" style="background:#79B7D8"></span>Blue Begonia
+        </button>
+        <button class="ps-tab" data-product="prosperity-peony">
+          <span class="ps-tab__dot" style="background:#D98372"></span>Prosperity Peony
+        </button>
+        <button class="ps-tab" data-product="verdant-vine">
+          <span class="ps-tab__dot" style="background:#8BAA78"></span>Verdant Vine
+        </button>
+        <button class="ps-tab" data-product="golden-apricot">
+          <span class="ps-tab__dot" style="background:#D8B45C"></span>Golden Apricot
+        </button>
+      </div>
+
+      <div class="pattern-story__card" id="psCard">
+        <div class="ps-card__inner" id="psCardInner">
+          <!-- Content injected by JS -->
+        </div>
+        <div class="ps-card__glow" id="psGlow"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 08: CONTACT / PRE-ORDER ──────────────── -->
+  <section class="contact" id="contact">
+    <div class="contact__glow"></div>
+    <div class="container">
+      <p class="section-label fade-up">Get in Touch</p>
+      <h2 class="contact__title fade-up">Bring a piece of Taiwanese memory into your everyday space.</h2>
+      <p class="contact__copy fade-up">Tile &amp; Trace is designed for modern cultural gifting, home styling, and collectible lifestyle objects. For product inquiries, collaboration, or pre-order information, feel free to get in touch.</p>
+      <div class="contact__actions fade-up">
+        <a href="mailto:cytan0419@gmail.com" class="btn btn--primary">Contact Us</a>
+        <a href="mailto:cytan0419@gmail.com?subject=Pre-order Inquiry — Tile %26 Trace" class="btn btn--ghost">Pre-order Inquiry</a>
+      </div>
+      <div class="contact__links fade-up">
+        <a href="mailto:cytan0419@gmail.com" class="contact__link">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4h16v12H2V4zm0 0l8 7 8-7" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          cytan0419@gmail.com
+        </a>
+        <a href="https://github.com/zoeytan-design" target="_blank" rel="noopener" class="contact__link">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 2C5.58 2 2 5.58 2 10c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0018 10c0-4.42-3.58-8-8-8z" fill="currentColor"/></svg>
+          zoeytan-design
+        </a>
+        <a href="https://www.linkedin.com/in/zoey-t-5549b215a/" target="_blank" rel="noopener" class="contact__link">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M6 8v6M6 6v.01M10 14v-3a2 2 0 014 0v3M10 8v6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Zoey Tan
+        </a>
+      </div>
+    </div>
+    <footer class="footer">
+      <p class="footer__brand">Tile &amp; Trace｜花磚流光</p>
+      <p class="footer__sub">A Taiwanese cultural product concept by Zoey Tan.</p>
+      <p class="footer__copy">&copy; 2026 Zoey Tan. All rights reserved.</p>
+    </footer>
+  </section>
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
