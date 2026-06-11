@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════
-   Tile & Trace｜花磚流光
+   Tile & Trace｜花磚流光  —  Pinned Scroll Edition
    script.js
    ══════════════════════════════════════════════════════ */
 
@@ -9,91 +9,86 @@
   /* ─── PRODUCT DATA ──────────────────────────────────── */
   const PRODUCTS = [
     {
-      id: 'blue-begonia',
-      num: '01',
       name: 'Blue Begonia',
+      nameEN: 'Blue Begonia / 湛藍海棠',
       cn: '湛藍海棠',
-      color: '#79B7D8',
-      desc: 'A calm translucent blue glass coaster inspired by the classic begonia motif in Taiwanese floral tiles.',
-      motif: 'Begonia-inspired floral tile',
-      colorStory: 'Translucent blue',
-      meaning: 'Elegance, clarity, and domestic memory',
-      material: 'Traditional ceramic tile motif becomes a minimal printed glass pattern.',
+      num: '01',
+      desc: 'A calm blue glass coaster inspired by the classic begonia motif.',
+      motif: 'Begonia flower',
+      color: 'Translucent blue',
+      meaning: 'Elegance and domestic memory',
+      accent: '#79B7D8',
     },
     {
-      id: 'prosperity-peony',
-      num: '02',
       name: 'Prosperity Peony',
+      nameEN: 'Prosperity Peony / 富貴牡丹',
       cn: '富貴牡丹',
-      color: '#D98372',
-      desc: 'A warm terracotta glass coaster inspired by peony-like floral forms, symbolizing blessing and richness.',
-      motif: 'Peony-inspired floral structure',
-      colorStory: 'Translucent terracotta coral',
-      meaning: 'Blessing, richness, and celebration',
-      material: 'A traditional floral symbol becomes a warm modern glass object.',
+      num: '02',
+      desc: 'A warm terracotta glass coaster inspired by peony-like floral forms.',
+      motif: 'Peony-inspired flower',
+      color: 'Terracotta coral',
+      meaning: 'Blessing and richness',
+      accent: '#D98372',
     },
     {
-      id: 'verdant-vine',
-      num: '03',
       name: 'Verdant Vine Blossom',
+      nameEN: 'Verdant Vine Blossom / 青藤團花',
       cn: '青藤團花',
-      color: '#8BAA78',
-      desc: 'A muted green glass coaster inspired by vine ornaments and floral medallions, expressing growth and continuity.',
-      motif: 'Vine ornaments and floral medallion',
-      colorStory: 'Translucent moss green',
-      meaning: 'Growth, continuity, and quiet beauty',
-      material: 'Decorative vine details are simplified into delicate printed linework.',
+      num: '03',
+      desc: 'A muted green glass coaster inspired by vine ornaments and floral medallions.',
+      motif: 'Vine and floral medallion',
+      color: 'Moss green',
+      meaning: 'Growth and continuity',
+      accent: '#8BAA78',
     },
     {
-      id: 'golden-apricot',
-      num: '04',
       name: 'Golden Apricot Bloom',
+      nameEN: 'Golden Apricot Bloom / 金杏花窗',
       cn: '金杏花窗',
-      color: '#D8B45C',
-      desc: 'A honey yellow glass coaster inspired by four-petal blossoms and old-house tile geometry.',
-      motif: 'Four-petal blossom and tile geometry',
-      colorStory: 'Translucent honey yellow',
-      meaning: 'Warmth, memory, and gentle rhythm',
-      material: 'Old-house tile geometry becomes a light and playful glass pattern.',
+      num: '04',
+      desc: 'A honey yellow glass coaster inspired by four-petal blossoms and tile geometry.',
+      motif: 'Four-petal blossom',
+      color: 'Honey yellow',
+      meaning: 'Warmth and memory',
+      accent: '#D8B45C',
     },
   ];
 
   /* ─── HELPERS ───────────────────────────────────────── */
-  function qs(selector, root) {
-    return (root || document).querySelector(selector);
-  }
-  function qsa(selector, root) {
-    return Array.from((root || document).querySelectorAll(selector));
-  }
-  function hexToRgba(hex, alpha) {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return `rgba(${r},${g},${b},${alpha})`;
+  const qs  = (sel, root) => (root || document).querySelector(sel);
+  const qsa = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function hexRgba(hex, a) {
+    const r = parseInt(hex.slice(1,3),16);
+    const g = parseInt(hex.slice(3,5),16);
+    const b = parseInt(hex.slice(5,7),16);
+    return `rgba(${r},${g},${b},${a})`;
   }
 
-  /* ─── NAVIGATION ────────────────────────────────────── */
+  /* ─── HANDLE MISSING IMAGES ─────────────────────────── */
+  function handleMissingImages() {
+    qsa('img').forEach(img => {
+      img.addEventListener('error', () => {
+        img.style.display = 'none';
+      });
+    });
+  }
+
+  /* ─── NAV ───────────────────────────────────────────── */
   function initNav() {
     const nav = qs('#nav');
     const hamburger = qs('#hamburger');
-    const mobileMenu = qs('#mobileMenu');
+    const mobile = qs('#mobileMenu');
 
-    // Scrolled state
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
+      nav.classList.toggle('scrolled', window.scrollY > 50);
     }, { passive: true });
 
-    // Mobile hamburger
-    hamburger.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-    });
+    hamburger.addEventListener('click', () => mobile.classList.toggle('open'));
+    qsa('a', mobile).forEach(a => a.addEventListener('click', () => mobile.classList.remove('open')));
 
-    // Close mobile menu on link click
-    qsa('a', mobileMenu).forEach(link => {
-      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
-    });
-
-    // Smooth scroll for all nav/CTA anchor links
+    // Smooth scroll
     document.addEventListener('click', e => {
       const a = e.target.closest('a[href^="#"]');
       if (!a) return;
@@ -104,290 +99,451 @@
     });
   }
 
-  /* ─── FADE-UP OBSERVER ──────────────────────────────── */
-  function initFadeUp() {
-    const items = qsa('.fade-up');
-    if (!items.length) return;
-
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (!entry.isIntersecting) return;
-        // Stagger siblings in the same parent
-        const siblings = qsa('.fade-up', entry.target.parentElement);
-        const idx = siblings.indexOf(entry.target);
-        setTimeout(() => {
-          entry.target.classList.add('is-visible');
-        }, idx * 80);
-        io.unobserve(entry.target);
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-    items.forEach(el => io.observe(el));
-  }
-
-  /* ─── SHOWCASE (PINNED PRODUCT SCROLL) ──────────────── */
-  function initShowcase() {
-    const pin      = qs('#showcasePin');
-    const spacer   = qs('#showcaseSpacer');
-    const bg       = qs('#showcaseBg');
-    const panels   = qsa('.showcase__panel');
-    const dots     = qsa('.showcase__dot');
-    const nameEl   = qs('#showcaseName');
-    const cnEl     = qs('#showcaseCn');
-    const descEl   = qs('#showcaseDesc');
-    const numEl    = qs('#showcaseNum');
-
-    if (!pin) return;
-
-    let current = 0;
-
-    function goTo(idx) {
-      if (idx === current) return;
-      panels[current].classList.remove('active');
-      dots[current].classList.remove('active');
-      current = idx;
-      panels[current].classList.add('active');
-      dots[current].classList.add('active');
-
-      const p = PRODUCTS[current];
-
-      // Animate text out then in
-      nameEl.style.opacity = '0';
-      nameEl.style.transform = 'translateY(10px)';
-      cnEl.style.opacity   = '0';
-      descEl.style.opacity = '0';
-      numEl.style.opacity  = '0';
-
-      setTimeout(() => {
-        nameEl.textContent = p.name;
-        cnEl.textContent   = p.cn;
-        descEl.textContent = p.desc;
-        numEl.textContent  = p.num;
-
-        nameEl.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
-        nameEl.style.opacity    = '1';
-        nameEl.style.transform  = 'translateY(0)';
-        cnEl.style.transition   = 'opacity 0.55s ease 0.08s';
-        cnEl.style.opacity      = '1';
-        descEl.style.transition = 'opacity 0.55s ease 0.14s';
-        descEl.style.opacity    = '1';
-        numEl.style.transition  = 'opacity 0.4s ease';
-        numEl.style.opacity     = '1';
-      }, 200);
-
-      // Background glow
-      bg.style.background = `radial-gradient(ellipse at 30% 50%, ${hexToRgba(p.color, 0.15)} 0%, transparent 60%)`;
-    }
-
-    // Initialize background
-    bg.style.background = `radial-gradient(ellipse at 30% 50%, ${hexToRgba(PRODUCTS[0].color, 0.15)} 0%, transparent 60%)`;
-
-    // Dot click
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => goTo(i));
-    });
-
-    // GSAP scroll-driven if available
-    if (window.gsap && window.ScrollTrigger) {
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Spacer height = 3× viewport so there's room to scroll through 4 products
-      const sectionHeight = window.innerHeight * 3.5;
-      spacer.style.height = sectionHeight + 'px';
-
-      ScrollTrigger.create({
-        trigger: qs('#showcase'),
-        start: 'top top',
-        end: `+=${sectionHeight}`,
-        pin: pin,
-        pinSpacing: false,
-        scrub: 0.6,
-        onUpdate: (self) => {
-          const progress = self.progress; // 0 – 1
-          const idx = Math.min(
-            PRODUCTS.length - 1,
-            Math.floor(progress * PRODUCTS.length)
-          );
-          if (idx !== current) goTo(idx);
-        },
-      });
-
-      // Floating product image
-      gsap.to('.showcase__visual', {
-        y: -12,
-        duration: 3,
-        ease: 'sine.inOut',
-        yoyo: true,
-        repeat: -1,
-      });
+  /* ─── MASKED TEXT REVEAL (GSAP or CSS fallback) ──────── */
+  function revealMasked(el, delay) {
+    delay = delay || 0;
+    if (!el) return;
+    if (window.gsap) {
+      gsap.fromTo(el,
+        { y: '100%', opacity: 0, filter: 'blur(6px)' },
+        { y: '0%', opacity: 1, filter: 'blur(0px)', duration: 1.1, delay, ease: 'power3.out' }
+      );
     } else {
-      // Fallback: auto-advance every 3 seconds
-      spacer.style.height = '0';
-      let autoIdx = 0;
-      setInterval(() => {
-        autoIdx = (autoIdx + 1) % PRODUCTS.length;
-        goTo(autoIdx);
-      }, 3200);
+      setTimeout(() => el.classList.add('revealed'), delay * 1000);
     }
   }
 
-  /* ─── COLLECTION HOVER GLOW ─────────────────────────── */
-  function initCollectionGlow() {
-    qsa('.collection__item').forEach(item => {
-      const color = item.dataset.color;
-      if (!color) return;
-      item.addEventListener('mouseenter', () => {
-        item.querySelector('.collection__img-wrap').style.boxShadow =
-          `0 12px 40px ${hexToRgba(color, 0.3)}`;
-      });
-      item.addEventListener('mouseleave', () => {
-        item.querySelector('.collection__img-wrap').style.boxShadow = '';
-      });
-      // Click → scroll to showcase
-      item.addEventListener('click', () => {
-        const showcase = qs('#showcase');
-        if (showcase) showcase.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
+  function revealSplitLines(lines, baseDelay) {
+    baseDelay = baseDelay || 0;
+    lines.forEach((line, i) => {
+      const inner = line.querySelector('span');
+      if (!inner) return;
+      if (window.gsap) {
+        gsap.fromTo(inner,
+          { y: '105%', opacity: 0 },
+          { y: '0%', opacity: 1, duration: 0.9, delay: baseDelay + i * 0.12, ease: 'power3.out' }
+        );
+      } else {
+        setTimeout(() => inner.classList.add('revealed'), (baseDelay + i * 0.15) * 1000);
+      }
     });
   }
 
-  /* ─── VALUE CARD GLOW ───────────────────────────────── */
-  function initValueGlow() {
-    qsa('.value__card').forEach(card => {
-      const color = card.dataset.glow;
-      if (!color) return;
-      card.addEventListener('mouseenter', () => {
-        card.style.boxShadow = `0 20px 60px ${hexToRgba(color, 0.22)}`;
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.boxShadow = '';
-      });
-    });
-  }
+  /* ═══════════════════════════════════════════════════════
+     SCENE 01 — HERO PIN
+     ═══════════════════════════════════════════════════════ */
+  function initHeroPin() {
+    const wrapper = qs('#scene-hero');
+    const section = wrapper.querySelector('.scene-hero');
+    if (!section) return;
 
-  /* ─── INTERACTIVE PATTERN STORY ─────────────────────── */
-  function initPatternStory() {
-    const tabs   = qsa('.ps-tab');
-    const inner  = qs('#psCardInner');
-    const glow   = qs('#psGlow');
-    if (!inner || !glow) return;
-
-    function renderCard(product) {
-      inner.innerHTML = `
-        <div class="ps-entry">
-          <h4>Motif</h4>
-          <p>${product.motif}</p>
-        </div>
-        <div class="ps-entry">
-          <h4>Color</h4>
-          <p>${product.colorStory}</p>
-        </div>
-        <div class="ps-entry">
-          <h4>Cultural Meaning</h4>
-          <p>${product.meaning}</p>
-        </div>
-        <div class="ps-entry">
-          <h4>Material Transformation</h4>
-          <p>${product.material}</p>
-        </div>
-      `;
-      glow.style.background = product.color;
+    if (prefersReduced) {
+      // Just reveal immediately
+      revealMasked(qs('.s1-title', section));
+      revealSplitLines(qsa('.split-line', section));
+      qsa('.s1-sub,.s1-actions,.s1-label,.s1-visual', section).forEach(el => {
+        if(el) { el.style.opacity='1'; el.style.transform='none'; }
+      });
+      return;
     }
 
-    function switchTo(id) {
-      const product = PRODUCTS.find(p => p.id === id);
-      if (!product) return;
-
-      // Update tabs
-      tabs.forEach(t => t.classList.toggle('active', t.dataset.product === id));
-
-      // Fade out
-      inner.classList.add('fading');
-      setTimeout(() => {
-        renderCard(product);
-        inner.classList.remove('fading');
-      }, 350);
+    if (!window.gsap || !window.ScrollTrigger) {
+      initHeroFallback(section);
+      return;
     }
 
-    // Initialize
-    renderCard(PRODUCTS[0]);
+    // Initial hidden states
+    const label   = qs('.s1-label', section);
+    const title   = qs('.s1-title', section);
+    const lines   = qsa('.split-line', section);
+    const sub     = qs('.s1-sub', section);
+    const actions = qs('.s1-actions', section);
+    const visual  = qs('.s1-visual', section);
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => switchTo(tab.dataset.product));
+    gsap.set([label, sub, actions], { opacity: 0, y: 20 });
+    gsap.set(visual, { opacity: 0, scale: 0.92, filter: 'blur(8px)' });
+    lines.forEach(l => gsap.set(l.querySelector('span'), { y: '105%', opacity: 0 }));
+    if (title) gsap.set(title, { y: '100%', opacity: 0 });
+
+    // Scene entrance — play on page load (hero is first section)
+    const tl = gsap.timeline({ delay: 0.3 });
+
+    // Stage 1: label
+    tl.to(label, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' });
+    // Stage 2: title masked reveal
+    if (title) tl.to(title, { y: '0%', opacity: 1, filter: 'blur(0px)', duration: 1.1, ease: 'power3.out' }, '-=0.3');
+    // Stage 3: tagline lines
+    lines.forEach((line, i) => {
+      const inner = line.querySelector('span');
+      tl.to(inner, { y: '0%', opacity: 1, duration: 0.9, ease: 'power3.out' }, `-=${i === 0 ? 0.5 : 0.7}`);
     });
+    // Stage 4: visual
+    tl.to(visual, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.0, ease: 'power2.out' }, '-=0.7');
+    // Stage 5: sub + actions
+    tl.to(sub, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.5');
+    tl.to(actions, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.4');
   }
 
-  /* ─── GSAP SCROLL REVEALS ────────────────────────────── */
-  function initGsapReveals() {
-    if (!window.gsap || !window.ScrollTrigger) return;
-    gsap.registerPlugin(ScrollTrigger);
+  function initHeroFallback(section) {
+    const els = qsa('.s1-label,.s1-sub,.s1-actions,.s1-visual', section);
+    els.forEach((el, i) => {
+      el.style.transition = `opacity 0.8s ease ${i*0.15}s, transform 0.8s ease ${i*0.15}s`;
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      }));
+    });
+    revealMasked(qs('.s1-title', section));
+    revealSplitLines(qsa('.split-line', section), 0.4);
+  }
 
-    // Cultural step numbers animate in sequence
-    const steps = qsa('.cultural__step-num');
-    steps.forEach((num, i) => {
-      ScrollTrigger.create({
-        trigger: num,
-        start: 'top 88%',
-        onEnter: () => {
-          gsap.fromTo(num,
-            { scale: 0.7, opacity: 0 },
-            { scale: 1, opacity: 1, duration: 0.6, delay: i * 0.12, ease: 'back.out(1.4)' }
-          );
-        },
-        once: true,
-      });
+  /* ═══════════════════════════════════════════════════════
+     SCENE 02 — PRODUCT VALUE PIN
+     ═══════════════════════════════════════════════════════ */
+  function initProductValuePin() {
+    const wrapper = qs('#scene-value');
+    const section = wrapper.querySelector('.scene-value');
+    if (!section || !window.gsap || !window.ScrollTrigger || prefersReduced) {
+      // Fallback: reveal on scroll intersection
+      initValueFallback(section);
+      return;
+    }
+
+    const title   = qs('.s2-title', section);
+    const label   = qs('.s2-label', section);
+    const visual  = qs('.s2-visual', section);
+    const cards   = qsa('.s2-point', section);
+
+    // Set wrapper scroll height
+    wrapper.style.height = '250vh';
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: wrapper,
+        start: 'top top',
+        end: '+=250%',
+        pin: section,
+        pinSpacing: false,
+        scrub: 0.8,
+        anticipatePin: 1,
+      }
     });
 
-    // Packaging boxes stagger
-    const boxes = qsa('.packaging__box');
-    boxes.forEach((box, i) => {
-      gsap.fromTo(box,
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1, y: 0, duration: 0.7, delay: i * 0.1,
-          ease: 'power2.out',
-          scrollTrigger: { trigger: box, start: 'top 88%', once: true },
-        }
+    // Stage 1: label + title
+    tl.fromTo(label, { opacity:0, y:15 }, { opacity:1, y:0, duration:0.15 }, 0);
+    tl.fromTo(title, { y:'100%', opacity:0, filter:'blur(6px)' },
+                     { y:'0%', opacity:1, filter:'blur(0px)', duration:0.2 }, 0.05);
+    tl.fromTo(visual, { opacity:0, scale:0.92 }, { opacity:1, scale:1, duration:0.2 }, 0);
+
+    // Stages 2–4: cards stagger
+    cards.forEach((card, i) => {
+      const start = 0.3 + i * 0.2;
+      tl.fromTo(card,
+        { opacity:0, x:24 },
+        { opacity:1, x:0, duration:0.18 },
+        start
       );
     });
 
-    // Hero glow parallax
-    const glows = qsa('.hero__glow');
-    glows.forEach((g, i) => {
-      gsap.to(g, {
-        y: i % 2 === 0 ? -60 : 60,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true,
-        },
+    // Hold then fade out
+    tl.to([title, label, visual, ...cards], { opacity:0, duration:0.1 }, 0.95);
+  }
+
+  function initValueFallback(section) {
+    if (!section) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        revealMasked(qs('.s2-title', section));
+        qsa('.s2-label, .s2-visual', section).forEach((el, i) => {
+          if(el){ el.style.transition=`opacity 0.7s ease ${i*0.1}s`; el.style.opacity='1'; }
+        });
+        qsa('.s2-point', section).forEach((card, i) => {
+          card.style.transitionDelay = `${0.2 + i * 0.15}s`;
+          card.classList.add('revealed');
+        });
+        io.disconnect();
       });
+    }, { threshold: 0.2 });
+    if (section) io.observe(section);
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     SCENE 03 — COLLECTION SHOWCASE PIN
+     ═══════════════════════════════════════════════════════ */
+  function initCollectionShowcasePin() {
+    const wrapper = qs('#scene-collection');
+    const section = wrapper.querySelector('.scene-collection');
+    if (!section) return;
+
+    const frames   = qsa('.product-frame', section);
+    const dots     = qsa('.pdot', section);
+    const bg       = qs('#collectionBg');
+    const numEl    = qs('#collectionNum');
+    const nameEl   = qs('#collectionName');
+    const cnEl     = qs('#collectionCn');
+    const descEl   = qs('#collectionDesc');
+    const motifEl  = qs('#metaMotif');
+    const colorEl  = qs('#metaColor');
+    const meaningEl= qs('#metaMeaning');
+
+    let current = 0;
+
+    function setProduct(idx, animate) {
+      if (idx === current && animate) return;
+      const p = PRODUCTS[idx];
+
+      // Image frames
+      frames[current].classList.remove('active');
+      frames[idx].classList.add('active');
+
+      // Dots
+      dots[current].classList.remove('active');
+      dots[idx].classList.add('active');
+
+      // Background glow
+      if (bg) {
+        bg.style.background = `radial-gradient(ellipse 70% 60% at 28% 50%, ${hexRgba(p.accent, 0.18)} 0%, transparent 65%)`;
+      }
+
+      // Update text
+      const fade = animate ? 0.25 : 0;
+      function swapText() {
+        numEl.textContent    = `${p.num} / 04`;
+        nameEl.textContent   = p.name;
+        cnEl.textContent     = p.cn;
+        descEl.textContent   = p.desc;
+        motifEl.textContent  = p.motif;
+        colorEl.textContent  = p.color;
+        meaningEl.textContent = p.meaning;
+      }
+
+      if (window.gsap && animate) {
+        gsap.to([numEl, nameEl, cnEl, descEl, motifEl, colorEl, meaningEl], {
+          opacity: 0, y: 8, duration: fade, ease: 'power2.in',
+          onComplete: () => {
+            swapText();
+            gsap.to([numEl, nameEl, cnEl, descEl, motifEl, colorEl, meaningEl], {
+              opacity: 1, y: 0, duration: 0.55, ease: 'power2.out', stagger: 0.04
+            });
+          }
+        });
+      } else {
+        swapText();
+      }
+
+      current = idx;
+    }
+
+    // Init background
+    if (bg) {
+      bg.style.background = `radial-gradient(ellipse 70% 60% at 28% 50%, ${hexRgba(PRODUCTS[0].accent, 0.18)} 0%, transparent 65%)`;
+    }
+
+    if (!window.gsap || !window.ScrollTrigger || prefersReduced) {
+      // Auto-advance fallback
+      let i = 0;
+      setInterval(() => {
+        i = (i + 1) % PRODUCTS.length;
+        setProduct(i, true);
+      }, 3000);
+      return;
+    }
+
+    // GSAP pinned scroll — each product gets ~60vh of scroll
+    const scrollBudget = window.innerHeight * (PRODUCTS.length + 1);
+    wrapper.style.height = scrollBudget + 'px';
+
+    ScrollTrigger.create({
+      trigger: wrapper,
+      start: 'top top',
+      end: `+=${scrollBudget}`,
+      pin: section,
+      pinSpacing: false,
+      anticipatePin: 1,
+      scrub: 0.5,
+      onUpdate(self) {
+        const p = self.progress; // 0–1
+        // Divide into 4 equal segments, last one stays on product 4
+        const idx = Math.min(PRODUCTS.length - 1, Math.floor(p * PRODUCTS.length));
+        if (idx !== current) setProduct(idx, true);
+      }
+    });
+
+    // Entrance animation for the first product
+    const firstFrame = frames[0];
+    const collectionText = qs('.collection-text', section);
+    gsap.fromTo(firstFrame, { opacity:0, scale:0.88 }, { opacity:1, scale:1, duration:1, ease:'power2.out',
+      scrollTrigger: { trigger: wrapper, start:'top 80%', once:true }
+    });
+    gsap.fromTo(collectionText, { opacity:0, x:30 }, { opacity:1, x:0, duration:1, ease:'power2.out',
+      scrollTrigger: { trigger: wrapper, start:'top 80%', once:true }
     });
   }
 
-  /* ─── PACKAGING BOX HOVER TOOLTIP ───────────────────── */
-  function initPackagingHover() {
-    qsa('.packaging__box').forEach(box => {
-      const color = box.closest('.packaging__box-inner--blue')  ? '#79B7D8'
-                  : box.querySelector('.packaging__box-inner--coral')  ? '#D98372'
-                  : box.querySelector('.packaging__box-inner--green')  ? '#8BAA78'
-                  : box.querySelector('.packaging__box-inner--yellow') ? '#D8B45C'
-                  : null;
+  /* ═══════════════════════════════════════════════════════
+     SCENE 04 — MATERIAL & PACKAGING PIN
+     ═══════════════════════════════════════════════════════ */
+  function initMaterialPackagingPin() {
+    const wrapper = qs('#scene-material');
+    const section = wrapper.querySelector('.scene-material');
+    if (!section) return;
+
+    const stages  = qsa('.material-stage', section);
+    const mprogs  = qsa('.mprog', section);
+    let currentStage = 0;
+
+    function setStage(idx) {
+      if (idx === currentStage) return;
+      stages[currentStage].classList.remove('ms-active');
+      mprogs[currentStage].classList.remove('active');
+      currentStage = Math.max(0, Math.min(stages.length - 1, idx));
+      stages[currentStage].classList.add('ms-active');
+      mprogs[currentStage].classList.add('active');
+
+      // Reveal masked text in new stage
+      const heading = stages[currentStage].querySelector('.masked-text__inner');
+      if (heading && window.gsap) {
+        gsap.fromTo(heading, { y:'100%', opacity:0 }, { y:'0%', opacity:1, duration:0.9, ease:'power3.out' });
+      } else if (heading) {
+        heading.classList.add('revealed');
+      }
+    }
+
+    if (!window.gsap || !window.ScrollTrigger || prefersReduced) {
+      // Initial reveal for stage 0
+      const h0 = stages[0].querySelector('.masked-text__inner');
+      if (h0) setTimeout(() => h0.classList.add('revealed'), 300);
+
+      // Auto-advance fallback
+      let i = 0;
+      setInterval(() => {
+        i = (i + 1) % stages.length;
+        setStage(i);
+      }, 3200);
+      return;
+    }
+
+    const scrollBudget = window.innerHeight * (stages.length + 1);
+    wrapper.style.height = scrollBudget + 'px';
+
+    ScrollTrigger.create({
+      trigger: wrapper,
+      start: 'top top',
+      end: `+=${scrollBudget}`,
+      pin: section,
+      pinSpacing: false,
+      anticipatePin: 1,
+      scrub: 0.5,
+      onUpdate(self) {
+        const idx = Math.min(stages.length - 1, Math.floor(self.progress * stages.length));
+        setStage(idx);
+      }
+    });
+
+    // Entrance reveal for stage 0
+    const h0 = stages[0].querySelector('.masked-text__inner');
+    if (h0) {
+      gsap.fromTo(h0, { y:'100%', opacity:0 },
+        { y:'0%', opacity:1, duration:1, ease:'power3.out',
+          scrollTrigger: { trigger: wrapper, start:'top 75%', once:true }
+        }
+      );
+    }
+
+    // Stage 2: boxes stagger entrance
+    ScrollTrigger.create({
+      trigger: wrapper,
+      start: 'top top',
+      onEnter() {
+        gsap.from('.pkg-box', { opacity:0, y:30, stagger:0.1, duration:0.7, ease:'power2.out', delay:0.3 });
+      },
+      once: true,
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     CONTACT SECTION REVEALS
+     ═══════════════════════════════════════════════════════ */
+  function initContactReveal() {
+    const section = qs('#scene-contact');
+    if (!section) return;
+
+    const title   = qs('.c-title', section);
+    const label   = qs('.c-label', section);
+    const copy    = qs('.c-copy', section);
+    const actions = qs('.c-actions', section);
+    const links   = qs('.c-links', section);
+
+    if (!window.gsap || !window.ScrollTrigger || prefersReduced) {
+      const io = new IntersectionObserver(entries => {
+        if (!entries[0].isIntersecting) return;
+        if (label) label.style.opacity = '1';
+        if (title) title.classList.add('revealed');
+        [copy, actions, links].forEach(el => { if(el) el.classList.add('revealed'); });
+        io.disconnect();
+      }, { threshold: 0.15 });
+      io.observe(section);
+      return;
+    }
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 70%',
+        once: true,
+      }
+    });
+
+    if (label) tl.fromTo(label, { opacity:0, y:12 }, { opacity:1, y:0, duration:0.6 }, 0);
+    if (title) tl.fromTo(title, { y:'100%', opacity:0, filter:'blur(6px)' },
+                                 { y:'0%', opacity:1, filter:'blur(0px)', duration:1.0, ease:'power3.out' }, 0.1);
+    if (copy)    tl.to(copy,    { opacity:1, y:0, duration:0.7, ease:'power2.out', onStart:()=>copy.style.transition='none' }, 0.5);
+    if (actions) tl.to(actions, { opacity:1, y:0, duration:0.7, ease:'power2.out', onStart:()=>actions.style.transition='none' }, 0.65);
+    if (links)   tl.to(links,   { opacity:1, y:0, duration:0.7, ease:'power2.out', onStart:()=>links.style.transition='none' }, 0.8);
+  }
+
+  /* ─── TEXT REVEALS (generic scroll-triggered) ────────── */
+  function initTextReveals() {
+    if (!window.gsap || !window.ScrollTrigger || prefersReduced) return;
+    gsap.registerPlugin(ScrollTrigger);
+    // Any .masked-text__inner not already handled
+    qsa('.masked-text__inner:not(.s1-title):not(.s2-title):not(.c-title)').forEach(el => {
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 85%',
+        once: true,
+        onEnter() {
+          gsap.fromTo(el, { y:'100%', opacity:0 }, { y:'0%', opacity:1, duration:0.9, ease:'power3.out' });
+        }
+      });
     });
   }
 
   /* ─── INIT ───────────────────────────────────────────── */
   function init() {
+    handleMissingImages();
     initNav();
-    initFadeUp();
-    initCollectionGlow();
-    initValueGlow();
-    initPatternStory();
-    initGsapReveals();
-    initShowcase();
-    initPackagingHover();
+
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+    }
+
+    initHeroPin();
+    initProductValuePin();
+    initCollectionShowcasePin();
+    initMaterialPackagingPin();
+    initTextReveals();
+    initContactReveal();
+
+    // Refresh ScrollTrigger after fonts + layout settle
+    if (window.ScrollTrigger) {
+      window.addEventListener('load', () => {
+        ScrollTrigger.refresh();
+      });
+    }
   }
 
   if (document.readyState === 'loading') {
