@@ -878,6 +878,10 @@
         playContact();
       }
 
+      if (toScene === 'shop') {
+        // shop scene needs no special entrance logic
+      }
+
       unlockAfterCooldown();
     });
   }
@@ -1035,7 +1039,6 @@
   const cartOverlay = document.getElementById('cartOverlay');
   const cartDrawer  = document.getElementById('cartDrawer');
   const cartItems   = document.getElementById('cartItems');
-  const cartCount   = document.getElementById('cartCount');
   const cartItemCount = document.getElementById('cartItemCount');
   const cartSubtotal  = document.getElementById('cartSubtotal');
 
@@ -1073,15 +1076,9 @@
   /* Update cart count badge */
   function updateBadge() {
     const total = Object.values(cart).reduce((s, i) => s + i.qty, 0);
-    cartCount.textContent = total;
-    cartItemCount.textContent = total;
-    if (total > 0) {
-      cartCount.classList.add('visible');
-    } else {
-      cartCount.classList.remove('visible');
-    }
+    if (cartItemCount) cartItemCount.textContent = total;
     const subtotal = Object.values(cart).reduce((s, i) => s + i.qty * PRICE, 0);
-    cartSubtotal.textContent = 'NT$ ' + subtotal.toLocaleString();
+    if (cartSubtotal) cartSubtotal.textContent = 'NT$ ' + subtotal.toLocaleString();
   }
 
   /* Render cart items */
