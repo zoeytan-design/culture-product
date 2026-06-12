@@ -1,14 +1,13 @@
 /* ══════════════════════════════════════════════════════
-   Tile & Trace｜花磚流光 — Stable Stage Snap v9
-   Placeholder removed version
+   Tile & Trace｜花磚流光 — Stable Stage Snap v10
+   Large image editorial layout
+   Placeholders removed
    Material stage changed from 4 steps to 3 steps
-   Packaging is now one single image
    ══════════════════════════════════════════════════════ */
 
 (function () {
   'use strict';
 
-  /* ─── PRODUCTS ──────────────────────────────────────── */
   const PRODUCTS = [
     {
       name: 'Blue Begonia',
@@ -52,7 +51,6 @@
     }
   ];
 
-  /* ─── HELPERS ───────────────────────────────────────── */
   const qs = (s, r) => (r || document).querySelector(s);
   const qsa = (s, r) => Array.from((r || document).querySelectorAll(s));
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -66,7 +64,6 @@
     return `rgba(${parseInt(hex.slice(1, 3), 16)},${parseInt(hex.slice(3, 5), 16)},${parseInt(hex.slice(5, 7), 16)},${a})`;
   }
 
-  /* ─── STEP TABLE ────────────────────────────────────── */
   const STEPS = [
     { scene: 'hero' },
 
@@ -103,17 +100,14 @@
     { vis: '.material-visual-3', cop: '.material-copy-3' }
   ];
 
-  /* ─── STATE ─────────────────────────────────────────── */
   let current = 0;
   let busy = false;
   let lastTime = 0;
   let collCurrent = -1;
-  let matCurrent = -1;
   let contactPlayed = false;
 
   const COOLDOWN = 850;
 
-  /* ─── PIP BAR ───────────────────────────────────────── */
   function buildPips() {
     const bar = qs('#pipBar');
     if (!bar) return;
@@ -133,10 +127,6 @@
     });
   }
 
-  /* ═══════════════════════════════════════════════════════
-     RESET / RENDER HELPERS
-  ═══════════════════════════════════════════════════════ */
-
   function resetHero() {
     const sec = qs('#scene-hero');
     if (!sec) return;
@@ -151,10 +141,29 @@
 
     if (G() && !reduced) {
       G().killTweensOf(clean([label, title, inners, sub, acts, visual]));
-      G().set(clean([label, sub, acts]), { opacity: 0, y: 22 });
-      G().set(visual, { opacity: 0, scale: 0.94 });
-      G().set(inners, { y: '106%', opacity: 0 });
-      if (title) G().set(title, { y: '106%', opacity: 0 });
+
+      G().set(clean([label, sub, acts]), {
+        opacity: 0,
+        y: 22
+      });
+
+      G().set(visual, {
+        opacity: 0,
+        scale: 0.96,
+        y: 12
+      });
+
+      G().set(inners, {
+        y: '106%',
+        opacity: 0
+      });
+
+      if (title) {
+        G().set(title, {
+          y: '106%',
+          opacity: 0
+        });
+      }
     } else {
       clean([label, sub, acts, visual, title, inners]).forEach(el => {
         el.style.opacity = '0';
@@ -164,6 +173,7 @@
 
   function heroEntrance() {
     const sec = qs('#scene-hero');
+
     if (!sec || !G() || reduced) return;
 
     const label = qs('.s1-label', sec);
@@ -176,7 +186,9 @@
 
     resetHero();
 
-    const tl = G().timeline({ delay: 0.18 });
+    const tl = G().timeline({
+      delay: 0.18
+    });
 
     if (label) {
       tl.to(label, {
@@ -209,7 +221,8 @@
       tl.to(visual, {
         opacity: 1,
         scale: 1,
-        duration: 0.95,
+        y: 0,
+        duration: 1.05,
         ease: 'power2.out'
       }, '-=0.55');
     }
@@ -237,6 +250,7 @@
     const vis = qs('.value-visual-center');
     const lbl = qs('.value-label');
     const ttl = qs('.value-title');
+
     const pts = [
       qs('.value-point-1'),
       qs('.value-point-2'),
@@ -311,6 +325,7 @@
 
       pts.forEach((pt, i) => {
         if (!pt) return;
+
         pt.style.opacity = i < sub ? '1' : '0';
         pt.style.transform = i < sub ? 'none' : 'translateX(28px)';
       });
@@ -321,6 +336,7 @@
     const vis = qs('.value-visual-center');
     const lbl = qs('.value-label');
     const ttl = qs('.value-title');
+
     const pts = [
       qs('.value-point-1'),
       qs('.value-point-2'),
@@ -383,6 +399,7 @@
 
       pts.forEach((pt, i) => {
         if (!pt) return;
+
         pt.style.opacity = i < sub ? '1' : '0';
         pt.style.transform = i < sub ? 'none' : 'translateX(28px)';
       });
@@ -426,7 +443,8 @@
     }
 
     if (bg) {
-      bg.style.background = `radial-gradient(ellipse 75% 65% at 28% 50%, ${hexRgba(p.accent, 0.16)} 0%, transparent 62%)`;
+      bg.style.background =
+        `radial-gradient(ellipse 75% 65% at 72% 52%, ${hexRgba(p.accent, 0.16)} 0%, transparent 62%)`;
     }
 
     if (G() && !reduced) {
@@ -437,9 +455,9 @@
 
         G().to(frame, {
           autoAlpha: i === sub ? 1 : 0,
-          scale: i === sub ? 1 : 0.96,
+          scale: i === sub ? 1 : 0.965,
           rotation: i === sub ? 0 : -1.5,
-          duration: animate ? 0.68 : 0,
+          duration: animate ? 0.72 : 0,
           ease: 'power2.out',
           overwrite: 'auto'
         });
@@ -542,9 +560,8 @@
 
           G().to(v, {
             autoAlpha: isActive ? 1 : 0,
-            scale: isActive ? 1 : 0.97,
-            y: isActive ? 0 : 10,
-            duration: animate ? 0.72 : 0,
+            scale: isActive ? 1 : 1.02,
+            duration: animate ? 0.82 : 0,
             ease: 'power2.out',
             overwrite: 'auto'
           });
@@ -556,7 +573,7 @@
           G().to(c, {
             autoAlpha: isActive ? 1 : 0,
             y: isActive ? 0 : 16,
-            duration: animate ? 0.62 : 0,
+            duration: animate ? 0.66 : 0,
             ease: 'power2.out',
             overwrite: 'auto',
             delay: isActive && animate ? 0.08 : 0
@@ -587,8 +604,6 @@
     qsa('.mprog').forEach((m, i) => {
       m.classList.toggle('active', i === sub);
     });
-
-    matCurrent = sub;
   }
 
   function playMaterial(sub) {
@@ -608,6 +623,7 @@
 
     if (G() && !reduced) {
       G().killTweensOf(els);
+
       G().set(els, {
         opacity: 0,
         y: 18
@@ -622,6 +638,7 @@
 
   function playContact() {
     if (contactPlayed) return;
+
     contactPlayed = true;
 
     const lbl = qs('.c-label');
@@ -642,44 +659,82 @@
 
     G().killTweensOf(els);
 
-    const tl = G().timeline({ delay: 0.08 });
+    const tl = G().timeline({
+      delay: 0.08
+    });
 
     if (lbl) {
       tl.fromTo(lbl,
-        { opacity: 0, y: 14 },
-        { opacity: 1, y: 0, duration: 0.65 },
+        {
+          opacity: 0,
+          y: 14
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.65
+        },
         0
       );
     }
 
     if (title) {
       tl.fromTo(title,
-        { opacity: 0, y: '70%' },
-        { opacity: 1, y: '0%', duration: 1.08, ease: 'power3.out' },
+        {
+          opacity: 0,
+          y: '70%'
+        },
+        {
+          opacity: 1,
+          y: '0%',
+          duration: 1.08,
+          ease: 'power3.out'
+        },
         0.08
       );
     }
 
     if (copy) {
       tl.fromTo(copy,
-        { opacity: 0, y: 18 },
-        { opacity: 1, y: 0, duration: 0.65 },
+        {
+          opacity: 0,
+          y: 18
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.65
+        },
         0.44
       );
     }
 
     if (actions) {
       tl.fromTo(actions,
-        { opacity: 0, y: 18 },
-        { opacity: 1, y: 0, duration: 0.65 },
+        {
+          opacity: 0,
+          y: 18
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.65
+        },
         0.6
       );
     }
 
     if (links) {
       tl.fromTo(links,
-        { opacity: 0, y: 18 },
-        { opacity: 1, y: 0, duration: 0.65 },
+        {
+          opacity: 0,
+          y: 18
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.65
+        },
         0.76
       );
     }
@@ -708,10 +763,6 @@
       resetContact();
     }
   }
-
-  /* ═══════════════════════════════════════════════════════
-     SCENE SWITCH
-  ═══════════════════════════════════════════════════════ */
 
   function switchScene(toName, fromName, onReady) {
     if (toName === fromName) {
@@ -796,10 +847,6 @@
     }, fromEl ? 0.12 : 0);
   }
 
-  /* ═══════════════════════════════════════════════════════
-     MAIN NAVIGATION
-  ═══════════════════════════════════════════════════════ */
-
   function unlockAfterCooldown() {
     setTimeout(() => {
       busy = false;
@@ -875,8 +922,6 @@
     });
   }
 
-  /* ─── INPUT ──────────────────────────────────────────── */
-
   let touchY0 = 0;
   let wheelAcc = 0;
 
@@ -935,8 +980,6 @@
     }
   });
 
-  /* ─── NAV CLICKS ─────────────────────────────────────── */
-
   document.addEventListener('click', e => {
     const el = e.target.closest('[data-goto]');
 
@@ -962,8 +1005,6 @@
       mobileMenu.classList.remove('open');
     }
   });
-
-  /* ─── INIT ───────────────────────────────────────────── */
 
   function init() {
     if (G()) {
