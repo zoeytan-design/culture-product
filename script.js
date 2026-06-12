@@ -1075,10 +1075,10 @@
   };
 
   const PRODUCT_IMGS = {
-    'blue-begonia':    'assets/blue-begonia.png',
-    'prosperity-peony':'assets/prosperity-peony.png',
-    'verdant-vine':    'assets/verdant-vine.png',
-    'golden-apricot':  'assets/golden-apricot.png'
+    'blue-begonia':    'assets/blue-begonia.webp',
+    'prosperity-peony':'assets/prosperity-peony.webp',
+    'verdant-vine':    'assets/verdant-vine.webp',
+    'golden-apricot':  'assets/golden-apricot.webp'
   };
 
   /* Open / close drawer */
