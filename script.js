@@ -1,13 +1,8 @@
 /* ══════════════════════════════════════════════════════
-   Tile & Trace｜花磚流光 — Stable Stage Snap v8
-   Fixes:
-   1. No flicker between scenes: GSAP autoAlpha controls visibility
-   2. Section 2 no longer becomes blank when scrolling upward
-   3. Same-scene transitions stay locked until cooldown ends
-   4. Collection and material frames crossfade instead of hard switching
-   5. Missing images keep placeholders visible and do not collapse layout
-   6. Section 2 base visual/title stays on screen while small elements appear one by one
-   7. Overall reveal motion is slowed down for a more premium feel
+   Tile & Trace｜花磚流光 — Stable Stage Snap v9
+   Placeholder removed version
+   Material stage changed from 4 steps to 3 steps
+   Packaging is now one single image
    ══════════════════════════════════════════════════════ */
 
 (function () {
@@ -71,37 +66,27 @@
     return `rgba(${parseInt(hex.slice(1, 3), 16)},${parseInt(hex.slice(3, 5), 16)},${parseInt(hex.slice(5, 7), 16)},${a})`;
   }
 
-  function setVisible(el, visible) {
-    if (!el) return;
-    if (G() && !reduced) {
-      G().set(el, {
-        autoAlpha: visible ? 1 : 0,
-        pointerEvents: visible ? 'auto' : 'none'
-      });
-    } else {
-      el.style.opacity = visible ? '1' : '0';
-      el.style.visibility = visible ? 'visible' : 'hidden';
-      el.style.pointerEvents = visible ? 'auto' : 'none';
-    }
-  }
-
   /* ─── STEP TABLE ────────────────────────────────────── */
   const STEPS = [
     { scene: 'hero' },
+
     { scene: 'value', sub: 0 },
     { scene: 'value', sub: 1 },
     { scene: 'value', sub: 2 },
     { scene: 'value', sub: 3 },
+
     { scene: 'collection', sub: 0 },
     { scene: 'collection', sub: 1 },
     { scene: 'collection', sub: 2 },
     { scene: 'collection', sub: 3 },
+
     { scene: 'material', sub: 0 },
     { scene: 'material', sub: 1 },
     { scene: 'material', sub: 2 },
-    { scene: 'material', sub: 3 },
+
     { scene: 'contact' }
   ];
+
   const LAST = STEPS.length - 1;
 
   const SCENE_EL = {
@@ -115,8 +100,7 @@
   const MAT = [
     { vis: '.material-visual-1', cop: '.material-copy-1' },
     { vis: '.material-visual-2', cop: '.material-copy-2' },
-    { vis: '.material-visual-3', cop: '.material-copy-3' },
-    { vis: '.material-visual-4', cop: '.material-copy-4' }
+    { vis: '.material-visual-3', cop: '.material-copy-3' }
   ];
 
   /* ─── STATE ─────────────────────────────────────────── */
@@ -133,7 +117,9 @@
   function buildPips() {
     const bar = qs('#pipBar');
     if (!bar) return;
+
     bar.innerHTML = '';
+
     STEPS.forEach((_, i) => {
       const p = document.createElement('span');
       p.className = 'stage-pip' + (i === 0 ? ' active' : '');
@@ -176,25 +162,74 @@
     }
   }
 
-  function resetContact() {
-    const els = clean([
-      qs('.c-label'),
-      qs('.c-title'),
-      qs('.c-copy'),
-      qs('.c-actions'),
-      qs('.c-links')
-    ]);
+  function heroEntrance() {
+    const sec = qs('#scene-hero');
+    if (!sec || !G() || reduced) return;
 
-    contactPlayed = false;
+    const label = qs('.s1-label', sec);
+    const title = qs('.s1-title', sec);
+    const lines = qsa('.split-line', sec);
+    const sub = qs('.s1-sub', sec);
+    const acts = qs('.s1-actions', sec);
+    const visual = qs('.s1-visual', sec);
+    const inners = lines.map(line => line.querySelector('span')).filter(Boolean);
 
-    if (G() && !reduced) {
-      G().killTweensOf(els);
-      G().set(els, { opacity: 0, y: 18 });
-    } else {
-      els.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(18px)';
+    resetHero();
+
+    const tl = G().timeline({ delay: 0.18 });
+
+    if (label) {
+      tl.to(label, {
+        opacity: 1,
+        y: 0,
+        duration: 0.72,
+        ease: 'power2.out'
       });
+    }
+
+    if (title) {
+      tl.to(title, {
+        y: '0%',
+        opacity: 1,
+        duration: 1.08,
+        ease: 'power3.out'
+      }, '-=0.18');
+    }
+
+    inners.forEach((inner, i) => {
+      tl.to(inner, {
+        y: '0%',
+        opacity: 1,
+        duration: 0.92,
+        ease: 'power3.out'
+      }, i === 0 ? '-=0.42' : '-=0.58');
+    });
+
+    if (visual) {
+      tl.to(visual, {
+        opacity: 1,
+        scale: 1,
+        duration: 0.95,
+        ease: 'power2.out'
+      }, '-=0.55');
+    }
+
+    if (sub) {
+      tl.to(sub, {
+        opacity: 1,
+        y: 0,
+        duration: 0.72,
+        ease: 'power2.out'
+      }, '-=0.42');
+    }
+
+    if (acts) {
+      tl.to(acts, {
+        opacity: 1,
+        y: 0,
+        duration: 0.72,
+        ease: 'power2.out'
+      }, '-=0.38');
     }
   }
 
@@ -202,7 +237,11 @@
     const vis = qs('.value-visual-center');
     const lbl = qs('.value-label');
     const ttl = qs('.value-title');
-    const pts = [qs('.value-point-1'), qs('.value-point-2'), qs('.value-point-3')];
+    const pts = [
+      qs('.value-point-1'),
+      qs('.value-point-2'),
+      qs('.value-point-3')
+    ];
 
     const baseEls = clean([vis, lbl, ttl]);
     const visiblePts = pts.filter((_, i) => i < sub).filter(Boolean);
@@ -212,21 +251,29 @@
     if (G() && !reduced) {
       G().killTweensOf(allEls);
 
-      // Base visual/title should be present for the target value state.
       G().set(baseEls, {
         opacity: 1,
         y: 0,
-        scale: 1,
-        filter: 'blur(0px)'
+        scale: 1
       });
 
-      G().set(visiblePts, { opacity: 1, x: 0 });
-      G().set(hiddenPts, { opacity: 0, x: 28 });
+      G().set(visiblePts, {
+        opacity: 1,
+        x: 0
+      });
 
-      // Only when entering Section 2 from another scene, replay the base reveal.
+      G().set(hiddenPts, {
+        opacity: 0,
+        x: 28
+      });
+
       if (animate) {
         G().fromTo(baseEls,
-          { opacity: 0, y: 18, scale: 0.98 },
+          {
+            opacity: 0,
+            y: 18,
+            scale: 0.98
+          },
           {
             opacity: 1,
             y: 0,
@@ -240,7 +287,10 @@
 
         if (visiblePts.length) {
           G().fromTo(visiblePts,
-            { opacity: 0, x: 24 },
+            {
+              opacity: 0,
+              x: 24
+            },
             {
               opacity: 1,
               x: 0,
@@ -257,7 +307,6 @@
       baseEls.forEach(el => {
         el.style.opacity = '1';
         el.style.transform = 'none';
-        el.style.filter = '';
       });
 
       pts.forEach((pt, i) => {
@@ -272,36 +321,53 @@
     const vis = qs('.value-visual-center');
     const lbl = qs('.value-label');
     const ttl = qs('.value-title');
-    const pts = [qs('.value-point-1'), qs('.value-point-2'), qs('.value-point-3')];
+    const pts = [
+      qs('.value-point-1'),
+      qs('.value-point-2'),
+      qs('.value-point-3')
+    ];
+
     const baseEls = clean([vis, lbl, ttl]);
     const allEls = clean([baseEls, pts]);
 
-    // During Section 2 internal steps, keep the large visual/title on screen.
-    // Only the small floating elements should appear/disappear one by one.
     if (G() && !reduced) {
       G().killTweensOf(allEls);
+
       G().set(baseEls, {
         opacity: 1,
         y: 0,
-        scale: 1,
-        filter: 'blur(0px)'
+        scale: 1
       });
 
       pts.forEach((pt, i) => {
         if (!pt) return;
+
         const shouldShow = i < sub;
         const isChangingForward = dir >= 0 && i === sub - 1;
         const isChangingBackward = dir < 0 && i === sub;
 
         if (isChangingForward) {
           G().fromTo(pt,
-            { opacity: 0, x: 30 },
-            { opacity: 1, x: 0, duration: 0.72, ease: 'power2.out', overwrite: 'auto' }
+            {
+              opacity: 0,
+              x: 30
+            },
+            {
+              opacity: 1,
+              x: 0,
+              duration: 0.72,
+              ease: 'power2.out',
+              overwrite: 'auto'
+            }
           );
         } else if (isChangingBackward) {
-          G().to(pt,
-            { opacity: 0, x: 30, duration: 0.45, ease: 'power2.in', overwrite: 'auto' }
-          );
+          G().to(pt, {
+            opacity: 0,
+            x: 30,
+            duration: 0.45,
+            ease: 'power2.in',
+            overwrite: 'auto'
+          });
         } else {
           G().set(pt, {
             opacity: shouldShow ? 1 : 0,
@@ -313,8 +379,8 @@
       baseEls.forEach(el => {
         el.style.opacity = '1';
         el.style.transform = 'none';
-        el.style.filter = '';
       });
+
       pts.forEach((pt, i) => {
         if (!pt) return;
         pt.style.opacity = i < sub ? '1' : '0';
@@ -368,6 +434,7 @@
 
       frames.forEach((frame, i) => {
         frame.classList.toggle('active', i === sub);
+
         G().to(frame, {
           autoAlpha: i === sub ? 1 : 0,
           scale: i === sub ? 1 : 0.96,
@@ -387,8 +454,12 @@
           overwrite: 'auto',
           onComplete: () => {
             applyText();
+
             G().fromTo(textEls,
-              { opacity: 0, y: 10 },
+              {
+                opacity: 0,
+                y: 10
+              },
               {
                 opacity: 1,
                 y: 0,
@@ -402,10 +473,18 @@
         });
       } else {
         applyText();
-        G().set(textEls, { opacity: 1, y: 0 });
+
+        G().set(textEls, {
+          opacity: 1,
+          y: 0
+        });
+
         if (animate) {
           G().fromTo(textEls,
-            { opacity: 0, y: 10 },
+            {
+              opacity: 0,
+              y: 10
+            },
             {
               opacity: 1,
               y: 0,
@@ -423,14 +502,19 @@
         frame.style.opacity = i === sub ? '1' : '0';
         frame.style.visibility = i === sub ? 'visible' : 'hidden';
       });
+
       applyText();
+
       textEls.forEach(el => {
         el.style.opacity = '1';
         el.style.transform = 'none';
       });
     }
 
-    qsa('.pdot').forEach((d, i) => d.classList.toggle('active', i === sub));
+    qsa('.pdot').forEach((d, i) => {
+      d.classList.toggle('active', i === sub);
+    });
+
     collCurrent = sub;
   }
 
@@ -455,6 +539,7 @@
 
         if (v) {
           v.classList.toggle('active', isActive);
+
           G().to(v, {
             autoAlpha: isActive ? 1 : 0,
             scale: isActive ? 1 : 0.97,
@@ -467,6 +552,7 @@
 
         if (c) {
           c.classList.toggle('active', isActive);
+
           G().to(c, {
             autoAlpha: isActive ? 1 : 0,
             y: isActive ? 0 : 16,
@@ -498,12 +584,40 @@
       });
     }
 
-    qsa('.mprog').forEach((m, i) => m.classList.toggle('active', i === sub));
+    qsa('.mprog').forEach((m, i) => {
+      m.classList.toggle('active', i === sub);
+    });
+
     matCurrent = sub;
   }
 
   function playMaterial(sub) {
     renderMaterialState(sub, true);
+  }
+
+  function resetContact() {
+    const els = clean([
+      qs('.c-label'),
+      qs('.c-title'),
+      qs('.c-copy'),
+      qs('.c-actions'),
+      qs('.c-links')
+    ]);
+
+    contactPlayed = false;
+
+    if (G() && !reduced) {
+      G().killTweensOf(els);
+      G().set(els, {
+        opacity: 0,
+        y: 18
+      });
+    } else {
+      els.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(18px)';
+      });
+    }
   }
 
   function playContact() {
@@ -529,43 +643,46 @@
     G().killTweensOf(els);
 
     const tl = G().timeline({ delay: 0.08 });
-    if (lbl) tl.fromTo(lbl, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.65 }, 0);
-    if (title) tl.fromTo(title, { opacity: 0, y: '70%' }, { opacity: 1, y: '0%', duration: 1.08, ease: 'power3.out' }, 0.08);
-    if (copy) tl.fromTo(copy, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.65 }, 0.44);
-    if (actions) tl.fromTo(actions, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.65 }, 0.6);
-    if (links) tl.fromTo(links, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.65 }, 0.76);
-  }
 
-  function heroEntrance() {
-    const sec = qs('#scene-hero');
-    if (!sec || !G() || reduced) return;
+    if (lbl) {
+      tl.fromTo(lbl,
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.65 },
+        0
+      );
+    }
 
-    const label = qs('.s1-label', sec);
-    const title = qs('.s1-title', sec);
-    const lines = qsa('.split-line', sec);
-    const sub = qs('.s1-sub', sec);
-    const acts = qs('.s1-actions', sec);
-    const visual = qs('.s1-visual', sec);
-    const inners = lines.map(line => line.querySelector('span')).filter(Boolean);
+    if (title) {
+      tl.fromTo(title,
+        { opacity: 0, y: '70%' },
+        { opacity: 1, y: '0%', duration: 1.08, ease: 'power3.out' },
+        0.08
+      );
+    }
 
-    resetHero();
+    if (copy) {
+      tl.fromTo(copy,
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.65 },
+        0.44
+      );
+    }
 
-    const tl = G().timeline({ delay: 0.18 });
-    if (label) tl.to(label, { opacity: 1, y: 0, duration: 0.72, ease: 'power2.out' });
-    if (title) tl.to(title, { y: '0%', opacity: 1, duration: 1.08, ease: 'power3.out' }, '-=0.18');
+    if (actions) {
+      tl.fromTo(actions,
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.65 },
+        0.6
+      );
+    }
 
-    inners.forEach((inner, i) => {
-      tl.to(inner, {
-        y: '0%',
-        opacity: 1,
-        duration: 0.92,
-        ease: 'power3.out'
-      }, i === 0 ? '-=0.42' : '-=0.58');
-    });
-
-    if (visual) tl.to(visual, { opacity: 1, scale: 1, duration: 0.95, ease: 'power2.out' }, '-=0.55');
-    if (sub) tl.to(sub, { opacity: 1, y: 0, duration: 0.72, ease: 'power2.out' }, '-=0.42');
-    if (acts) tl.to(acts, { opacity: 1, y: 0, duration: 0.72, ease: 'power2.out' }, '-=0.38');
+    if (links) {
+      tl.fromTo(links,
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.65 },
+        0.76
+      );
+    }
   }
 
   function prepareTargetState(step) {
@@ -594,8 +711,8 @@
 
   /* ═══════════════════════════════════════════════════════
      SCENE SWITCH
-     Uses GSAP autoAlpha only. No inline opacity reset.
   ═══════════════════════════════════════════════════════ */
+
   function switchScene(toName, fromName, onReady) {
     if (toName === fromName) {
       onReady();
@@ -640,10 +757,13 @@
     toEl.classList.add('active');
 
     const tl = gsap.timeline({
-      defaults: { overwrite: 'auto' },
+      defaults: {
+        overwrite: 'auto'
+      },
       onComplete: () => {
         if (fromEl) {
           fromEl.classList.remove('active');
+
           gsap.set(fromEl, {
             autoAlpha: 0,
             pointerEvents: 'none',
@@ -679,6 +799,7 @@
   /* ═══════════════════════════════════════════════════════
      MAIN NAVIGATION
   ═══════════════════════════════════════════════════════ */
+
   function unlockAfterCooldown() {
     setTimeout(() => {
       busy = false;
@@ -689,26 +810,40 @@
     if (busy) return;
 
     const now = Date.now();
+
     if (now - lastTime < COOLDOWN) return;
+
     lastTime = now;
 
     next = Math.max(0, Math.min(LAST, next));
+
     if (next === current) return;
 
     busy = true;
 
     const fromStep = STEPS[current];
     const toStep = STEPS[next];
+
     const fromScene = fromStep.scene;
     const toScene = toStep.scene;
 
     current = next;
+
     updatePips();
 
     if (fromScene === toScene) {
-      if (toScene === 'value') playValue(toStep.sub, dir);
-      if (toScene === 'collection') playCollection(toStep.sub);
-      if (toScene === 'material') playMaterial(toStep.sub);
+      if (toScene === 'value') {
+        playValue(toStep.sub, dir);
+      }
+
+      if (toScene === 'collection') {
+        playCollection(toStep.sub);
+      }
+
+      if (toScene === 'material') {
+        playMaterial(toStep.sub);
+      }
+
       unlockAfterCooldown();
       return;
     }
@@ -716,17 +851,32 @@
     prepareTargetState(toStep);
 
     switchScene(toScene, fromScene, () => {
-      if (toScene === 'hero') heroEntrance();
-      if (toScene === 'value') renderValueState(toStep.sub, true);
-      if (toScene === 'collection') renderCollectionState(toStep.sub, true);
-      if (toScene === 'material') renderMaterialState(toStep.sub, true);
-      if (toScene === 'contact') playContact();
+      if (toScene === 'hero') {
+        heroEntrance();
+      }
+
+      if (toScene === 'value') {
+        renderValueState(toStep.sub, true);
+      }
+
+      if (toScene === 'collection') {
+        renderCollectionState(toStep.sub, true);
+      }
+
+      if (toScene === 'material') {
+        renderMaterialState(toStep.sub, true);
+      }
+
+      if (toScene === 'contact') {
+        playContact();
+      }
 
       unlockAfterCooldown();
     });
   }
 
   /* ─── INPUT ──────────────────────────────────────────── */
+
   let touchY0 = 0;
   let wheelAcc = 0;
 
@@ -734,25 +884,35 @@
     e.preventDefault();
 
     wheelAcc += e.deltaY;
+
     if (Math.abs(wheelAcc) < 50) return;
 
     const dir = wheelAcc > 0 ? 1 : -1;
+
     wheelAcc = 0;
 
     goTo(current + dir, dir);
-  }, { passive: false });
+  }, {
+    passive: false
+  });
 
   window.addEventListener('touchstart', e => {
     touchY0 = e.touches[0].clientY;
-  }, { passive: true });
+  }, {
+    passive: true
+  });
 
   window.addEventListener('touchend', e => {
     const dy = touchY0 - e.changedTouches[0].clientY;
+
     if (Math.abs(dy) < 40) return;
 
     const dir = dy > 0 ? 1 : -1;
+
     goTo(current + dir, dir);
-  }, { passive: true });
+  }, {
+    passive: true
+  });
 
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowDown' || e.key === 'PageDown') {
@@ -767,43 +927,54 @@
 
     if (e.key === 'Home') {
       e.preventDefault();
+
       busy = false;
       lastTime = 0;
+
       goTo(0, -1);
     }
   });
 
   /* ─── NAV CLICKS ─────────────────────────────────────── */
+
   document.addEventListener('click', e => {
     const el = e.target.closest('[data-goto]');
+
     if (!el) return;
 
     e.preventDefault();
 
     const target = el.dataset.goto;
     const idx = STEPS.findIndex(s => s.scene === target);
+
     if (idx < 0) return;
 
     const dir = idx > current ? 1 : -1;
 
-    // Nav bypasses cooldown so logo / menu always responds.
     busy = false;
     lastTime = 0;
 
     goTo(idx, dir);
 
     const mobileMenu = qs('#mobileMenu');
-    if (mobileMenu) mobileMenu.classList.remove('open');
+
+    if (mobileMenu) {
+      mobileMenu.classList.remove('open');
+    }
   });
 
   /* ─── INIT ───────────────────────────────────────────── */
+
   function init() {
     if (G()) {
-      G().defaults({ overwrite: 'auto' });
+      G().defaults({
+        overwrite: 'auto'
+      });
     }
 
     qsa('.scene').forEach(scene => {
       const isHero = scene.id === 'scene-hero';
+
       scene.classList.toggle('active', isHero);
 
       if (G() && !reduced) {
@@ -819,15 +990,14 @@
       }
     });
 
-    // Prepare all non-hero scenes so there are no unstyled flashes later.
     renderValueState(0, false);
     renderCollectionState(0, false);
     renderMaterialState(0, false);
     resetContact();
 
-    // Make sure only hero is visible after preparation.
     qsa('.scene').forEach(scene => {
       const isHero = scene.id === 'scene-hero';
+
       scene.classList.toggle('active', isHero);
 
       if (G() && !reduced) {
@@ -843,14 +1013,9 @@
       }
     });
 
-    qsa('img').forEach(img => {
-      img.addEventListener('error', () => {
-        img.classList.add('is-missing');
-      });
-    });
-
     const hb = qs('#hamburger');
     const mm = qs('#mobileMenu');
+
     if (hb && mm) {
       hb.addEventListener('click', () => {
         mm.classList.toggle('open');
