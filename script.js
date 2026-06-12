@@ -692,6 +692,31 @@
     }
   }
 
+  function playShop() {
+    if (!G() || reduced) return;
+    const header = qs('.shop-header');
+    const cards  = qsa('.product-card');
+    if (!header && !cards.length) return;
+
+    G().killTweensOf(clean([header, cards]));
+
+    const tl = G().timeline({ delay: 0.05 });
+
+    if (header) {
+      tl.fromTo(header,
+        { opacity: 0, y: 28 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' },
+        0
+      );
+    }
+
+    tl.fromTo(cards,
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out', stagger: 0.1 },
+      0.18
+    );
+  }
+
   function prepareTargetState(step) {
     if (!step) return;
 
@@ -879,7 +904,7 @@
       }
 
       if (toScene === 'shop') {
-        // shop scene needs no special entrance logic
+        playShop();
       }
 
       unlockAfterCooldown();
