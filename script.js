@@ -1,11 +1,13 @@
 /* ══════════════════════════════════════════════════════
-   Tile & Trace｜花磚流光 — Stable Stage Snap v7
+   Tile & Trace｜花磚流光 — Stable Stage Snap v8
    Fixes:
    1. No flicker between scenes: GSAP autoAlpha controls visibility
    2. Section 2 no longer becomes blank when scrolling upward
    3. Same-scene transitions stay locked until cooldown ends
    4. Collection and material frames crossfade instead of hard switching
    5. Missing images keep placeholders visible and do not collapse layout
+   6. Section 2 base visual/title stays on screen while small elements appear one by one
+   7. Overall reveal motion is slowed down for a more premium feel
    ══════════════════════════════════════════════════════ */
 
 (function () {
@@ -125,7 +127,7 @@
   let matCurrent = -1;
   let contactPlayed = false;
 
-  const COOLDOWN = 680;
+  const COOLDOWN = 850;
 
   /* ─── PIP BAR ───────────────────────────────────────── */
   function buildPips() {
@@ -203,11 +205,14 @@
     const pts = [qs('.value-point-1'), qs('.value-point-2'), qs('.value-point-3')];
 
     const baseEls = clean([vis, lbl, ttl]);
+    const visiblePts = pts.filter((_, i) => i < sub).filter(Boolean);
+    const hiddenPts = pts.filter((_, i) => i >= sub).filter(Boolean);
     const allEls = clean([baseEls, pts]);
 
     if (G() && !reduced) {
       G().killTweensOf(allEls);
 
+      // Base visual/title should be present for the target value state.
       G().set(baseEls, {
         opacity: 1,
         y: 0,
@@ -215,38 +220,34 @@
         filter: 'blur(0px)'
       });
 
-      pts.forEach((pt, i) => {
-        if (!pt) return;
-        G().set(pt, {
-          opacity: i < sub ? 1 : 0,
-          x: i < sub ? 0 : 28
-        });
-      });
+      G().set(visiblePts, { opacity: 1, x: 0 });
+      G().set(hiddenPts, { opacity: 0, x: 28 });
 
+      // Only when entering Section 2 from another scene, replay the base reveal.
       if (animate) {
         G().fromTo(baseEls,
-          { opacity: 0, y: 14 },
+          { opacity: 0, y: 18, scale: 0.98 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.45,
+            scale: 1,
+            duration: 0.78,
             ease: 'power2.out',
-            stagger: 0.04,
+            stagger: 0.06,
             overwrite: 'auto'
           }
         );
 
-        const visiblePts = pts.filter((_, i) => i < sub);
         if (visiblePts.length) {
           G().fromTo(visiblePts,
-            { opacity: 0, x: 22 },
+            { opacity: 0, x: 24 },
             {
               opacity: 1,
               x: 0,
-              duration: 0.45,
+              duration: 0.7,
               ease: 'power2.out',
-              stagger: 0.05,
-              delay: 0.1,
+              stagger: 0.08,
+              delay: 0.16,
               overwrite: 'auto'
             }
           );
@@ -267,8 +268,59 @@
     }
   }
 
-  function playValue(sub) {
-    renderValueState(sub, true);
+  function playValue(sub, dir) {
+    const vis = qs('.value-visual-center');
+    const lbl = qs('.value-label');
+    const ttl = qs('.value-title');
+    const pts = [qs('.value-point-1'), qs('.value-point-2'), qs('.value-point-3')];
+    const baseEls = clean([vis, lbl, ttl]);
+    const allEls = clean([baseEls, pts]);
+
+    // During Section 2 internal steps, keep the large visual/title on screen.
+    // Only the small floating elements should appear/disappear one by one.
+    if (G() && !reduced) {
+      G().killTweensOf(allEls);
+      G().set(baseEls, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        filter: 'blur(0px)'
+      });
+
+      pts.forEach((pt, i) => {
+        if (!pt) return;
+        const shouldShow = i < sub;
+        const isChangingForward = dir >= 0 && i === sub - 1;
+        const isChangingBackward = dir < 0 && i === sub;
+
+        if (isChangingForward) {
+          G().fromTo(pt,
+            { opacity: 0, x: 30 },
+            { opacity: 1, x: 0, duration: 0.72, ease: 'power2.out', overwrite: 'auto' }
+          );
+        } else if (isChangingBackward) {
+          G().to(pt,
+            { opacity: 0, x: 30, duration: 0.45, ease: 'power2.in', overwrite: 'auto' }
+          );
+        } else {
+          G().set(pt, {
+            opacity: shouldShow ? 1 : 0,
+            x: shouldShow ? 0 : 28
+          });
+        }
+      });
+    } else {
+      baseEls.forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+        el.style.filter = '';
+      });
+      pts.forEach((pt, i) => {
+        if (!pt) return;
+        pt.style.opacity = i < sub ? '1' : '0';
+        pt.style.transform = i < sub ? 'none' : 'translateX(28px)';
+      });
+    }
   }
 
   function renderCollectionState(sub, animate) {
@@ -320,7 +372,7 @@
           autoAlpha: i === sub ? 1 : 0,
           scale: i === sub ? 1 : 0.96,
           rotation: i === sub ? 0 : -1.5,
-          duration: animate ? 0.48 : 0,
+          duration: animate ? 0.68 : 0,
           ease: 'power2.out',
           overwrite: 'auto'
         });
@@ -330,7 +382,7 @@
         G().to(textEls, {
           opacity: 0,
           y: 8,
-          duration: 0.18,
+          duration: 0.28,
           ease: 'power2.in',
           overwrite: 'auto',
           onComplete: () => {
@@ -340,9 +392,9 @@
               {
                 opacity: 1,
                 y: 0,
-                duration: 0.45,
+                duration: 0.62,
                 ease: 'power2.out',
-                stagger: 0.035,
+                stagger: 0.05,
                 overwrite: 'auto'
               }
             );
@@ -357,9 +409,9 @@
             {
               opacity: 1,
               y: 0,
-              duration: 0.45,
+              duration: 0.62,
               ease: 'power2.out',
-              stagger: 0.035,
+              stagger: 0.05,
               overwrite: 'auto'
             }
           );
@@ -407,7 +459,7 @@
             autoAlpha: isActive ? 1 : 0,
             scale: isActive ? 1 : 0.97,
             y: isActive ? 0 : 10,
-            duration: animate ? 0.52 : 0,
+            duration: animate ? 0.72 : 0,
             ease: 'power2.out',
             overwrite: 'auto'
           });
@@ -418,7 +470,7 @@
           G().to(c, {
             autoAlpha: isActive ? 1 : 0,
             y: isActive ? 0 : 16,
-            duration: animate ? 0.42 : 0,
+            duration: animate ? 0.62 : 0,
             ease: 'power2.out',
             overwrite: 'auto',
             delay: isActive && animate ? 0.08 : 0
@@ -477,11 +529,11 @@
     G().killTweensOf(els);
 
     const tl = G().timeline({ delay: 0.08 });
-    if (lbl) tl.fromTo(lbl, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5 }, 0);
-    if (title) tl.fromTo(title, { opacity: 0, y: '70%' }, { opacity: 1, y: '0%', duration: 0.85, ease: 'power3.out' }, 0.08);
-    if (copy) tl.fromTo(copy, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5 }, 0.34);
-    if (actions) tl.fromTo(actions, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5 }, 0.46);
-    if (links) tl.fromTo(links, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5 }, 0.58);
+    if (lbl) tl.fromTo(lbl, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.65 }, 0);
+    if (title) tl.fromTo(title, { opacity: 0, y: '70%' }, { opacity: 1, y: '0%', duration: 1.08, ease: 'power3.out' }, 0.08);
+    if (copy) tl.fromTo(copy, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.65 }, 0.44);
+    if (actions) tl.fromTo(actions, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.65 }, 0.6);
+    if (links) tl.fromTo(links, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.65 }, 0.76);
   }
 
   function heroEntrance() {
@@ -499,21 +551,21 @@
     resetHero();
 
     const tl = G().timeline({ delay: 0.18 });
-    if (label) tl.to(label, { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' });
-    if (title) tl.to(title, { y: '0%', opacity: 1, duration: 0.85, ease: 'power3.out' }, '-=0.18');
+    if (label) tl.to(label, { opacity: 1, y: 0, duration: 0.72, ease: 'power2.out' });
+    if (title) tl.to(title, { y: '0%', opacity: 1, duration: 1.08, ease: 'power3.out' }, '-=0.18');
 
     inners.forEach((inner, i) => {
       tl.to(inner, {
         y: '0%',
         opacity: 1,
-        duration: 0.72,
+        duration: 0.92,
         ease: 'power3.out'
       }, i === 0 ? '-=0.42' : '-=0.58');
     });
 
-    if (visual) tl.to(visual, { opacity: 1, scale: 1, duration: 0.75, ease: 'power2.out' }, '-=0.55');
-    if (sub) tl.to(sub, { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, '-=0.36');
-    if (acts) tl.to(acts, { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, '-=0.32');
+    if (visual) tl.to(visual, { opacity: 1, scale: 1, duration: 0.95, ease: 'power2.out' }, '-=0.55');
+    if (sub) tl.to(sub, { opacity: 1, y: 0, duration: 0.72, ease: 'power2.out' }, '-=0.42');
+    if (acts) tl.to(acts, { opacity: 1, y: 0, duration: 0.72, ease: 'power2.out' }, '-=0.38');
   }
 
   function prepareTargetState(step) {
@@ -612,14 +664,14 @@
     if (fromEl && fromEl.classList.contains('active')) {
       tl.to(fromEl, {
         autoAlpha: 0,
-        duration: 0.28,
-        ease: 'power2.in'
+        duration: 0.42,
+        ease: 'power2.inOut'
       }, 0);
     }
 
     tl.to(toEl, {
       autoAlpha: 1,
-      duration: 0.42,
+      duration: 0.62,
       ease: 'power2.out'
     }, fromEl ? 0.12 : 0);
   }
@@ -654,7 +706,7 @@
     updatePips();
 
     if (fromScene === toScene) {
-      if (toScene === 'value') playValue(toStep.sub);
+      if (toScene === 'value') playValue(toStep.sub, dir);
       if (toScene === 'collection') playCollection(toStep.sub);
       if (toScene === 'material') playMaterial(toStep.sub);
       unlockAfterCooldown();
