@@ -164,7 +164,8 @@
 
     // Reset destination scene to initial state before showing it
     const resets = { value: resetValue, collection: resetCollection,
-                     material: resetMaterial, contact: resetContact };
+                     material: resetMaterial, contact: resetContact,
+                     hero: resetHero };
     if (resets[toName]) resets[toName]();
 
     // Prepare destination: invisible but in DOM
@@ -400,6 +401,7 @@
       // ── Different scene: cross-fade then play ──
       switchScene(toScene, fromScene, () => {
         const s = toStep;
+        if (s.scene === 'hero')        heroEntrance();
         if (s.scene === 'value')      playValue(s.sub, dir);
         if (s.scene === 'collection') playCollection(s.sub);
         if (s.scene === 'material')   playMaterial(s.sub);
@@ -450,10 +452,25 @@
     // Nav bypasses busy/cooldown
     busy = false; lastTime = 0;
     goTo(idx, dir);
-    qs('#mobileMenu').classList.remove('open');
+    qs('#mobileMenu') && qs('#mobileMenu').classList.remove('open');
   });
 
   /* ─── HERO ENTRANCE ──────────────────────────────────── */
+  function resetHero() {
+    const sec = qs('#scene-hero');
+    if (!sec || !G() || reduced) return;
+    const label  = qs('.s1-label',   sec);
+    const title  = qs('.s1-title',   sec);
+    const lines  = qsa('.split-line', sec);
+    const sub    = qs('.s1-sub',     sec);
+    const acts   = qs('.s1-actions', sec);
+    const visual = qs('.s1-visual',  sec);
+    G().set([label, sub, acts], { opacity:0, y:22 });
+    G().set(visual, { opacity:0, scale:0.93, filter:'blur(8px)' });
+    lines.forEach(l => G().set(l.querySelector('span'), { y:'106%', opacity:0 }));
+    if (title) G().set(title, { y:'106%', opacity:0, filter:'blur(4px)' });
+  }
+
   function heroEntrance() {
     const sec = qs('#scene-hero');
     if (!sec || !G() || reduced) return;
