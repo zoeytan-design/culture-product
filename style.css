@@ -300,17 +300,16 @@ ul {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 28px;
   overflow: hidden;
-  background: rgba(255, 253, 248, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow:
-    0 32px 80px rgba(80, 80, 80, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: center;
+  /* base: no frame by default */
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 .frosted-panel img {
@@ -318,7 +317,7 @@ ul {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   z-index: 1;
 }
 
@@ -326,42 +325,62 @@ ul {
   display: none;
 }
 
+/* ── Hero: frameless, contain so full product shows ── */
 .frosted-panel--hero {
+  width: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: 28px;
 }
 
+.frosted-panel--hero img {
+  object-fit: contain;
+  filter: drop-shadow(0 24px 48px rgba(58,58,54,0.13));
+}
+
+/* ── Value: full-bleed background + dark overlay ───── */
 .frosted-panel--value {
-  width: min(460px, 62vmin);
-  aspect-ratio: 1 / 1;
-  border-radius: 28px;
-}
-
-.frosted-panel--material {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  border-radius: 22px;
 }
 
-.frosted-panel--pattern {
-  width: 100%;
-  height: 100%;
-  border-radius: 22px;
+.frosted-panel--value img {
+  object-fit: cover;
 }
 
+.frosted-panel--value::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(30, 28, 25, 0.38);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Material / Pattern / Boxes: full-bleed left half ── */
+.frosted-panel--material,
+.frosted-panel--pattern,
 .frosted-panel--boxes {
   width: 100%;
   height: 100%;
-  border-radius: 22px;
-  padding: 20px;
 }
 
-.frosted-panel--gold {
-  width: 100%;
-  height: 100%;
-  border-radius: 22px;
-  background: rgba(200, 165, 90, 0.08);
-  border: 1px solid rgba(200, 165, 90, 0.3);
+.frosted-panel--material img,
+.frosted-panel--pattern img,
+.frosted-panel--boxes img {
+  object-fit: cover;
+}
+
+/* right-edge gradient to blend into text panel */
+.frosted-panel--material::after,
+.frosted-panel--pattern::after,
+.frosted-panel--boxes::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 65%, var(--warm) 100%);
+  z-index: 2;
+  pointer-events: none;
 }
 
 /* ═══ COASTER PLACEHOLDERS ═══════════════════════════ */
@@ -598,25 +617,6 @@ ul {
   justify-content: flex-end;
 }
 
-.frosted-panel--hero {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 0;
-  border: none;
-  background: transparent;
-  box-shadow: none;
-  backdrop-filter: none;
-}
-
-.frosted-panel--hero img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  position: relative;
-  z-index: 1;
-  drop-shadow: drop-shadow(0 24px 48px rgba(58,58,54,0.12));
-}
-
 .hero-title {
   font-family: var(--serif);
   font-size: clamp(3.8rem, 8vw, 7.6rem);
@@ -722,33 +722,6 @@ ul {
   z-index: 1;
   pointer-events: none;
   will-change: transform, opacity;
-}
-
-.frosted-panel--value {
-  width: 100%;
-  height: 100%;
-  border-radius: 0;
-  border: none;
-  background: transparent;
-  box-shadow: none;
-  backdrop-filter: none;
-}
-
-.frosted-panel--value img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  inset: 0;
-}
-
-/* Dark overlay for readability */
-.frosted-panel--value::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(30, 28, 25, 0.38);
-  z-index: 2;
 }
 
 .value-overlay {
@@ -1020,42 +993,6 @@ ul {
   visibility: visible;
 }
 
-/* Full-bleed frosted panels for material */
-.frosted-panel--material,
-.frosted-panel--pattern,
-.frosted-panel--boxes {
-  width: 100%;
-  height: 100%;
-  border-radius: 0;
-  border: none;
-  background: transparent;
-  box-shadow: none;
-  backdrop-filter: none;
-  position: relative;
-}
-
-.frosted-panel--material img,
-.frosted-panel--pattern img,
-.frosted-panel--boxes img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-}
-
-/* Subtle right-edge gradient so text side blends in */
-.frosted-panel--material::after,
-.frosted-panel--pattern::after,
-.frosted-panel--boxes::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, transparent 70%, var(--warm) 100%);
-  z-index: 2;
-  pointer-events: none;
-}
 
 /* Right: text panel */
 .material-text-panel {
