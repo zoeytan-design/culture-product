@@ -84,6 +84,8 @@
     { scene: 'material', sub: 1 },
     { scene: 'material', sub: 2 },
 
+    { scene: 'shop' },
+
     { scene: 'contact' }
   ];
 
@@ -94,6 +96,7 @@
     value: () => qs('#scene-value'),
     collection: () => qs('#scene-collection'),
     material: () => qs('#scene-material'),
+    shop: () => qs('#scene-shop'),
     contact: () => qs('#scene-contact')
   };
 
@@ -114,7 +117,7 @@
   const COOLDOWN = 850;
 
   /* ─── PIP BAR ───────────────────────────────────────── */
-  const SCENE_ORDER = ['hero', 'value', 'collection', 'material', 'contact'];
+  const SCENE_ORDER = ['hero', 'value', 'collection', 'material', 'shop', 'contact'];
 
   function buildPips() {
     const bar = qs('#pipBar');
@@ -1020,4 +1023,160 @@
   } else {
     init();
   }
+})();
+
+/* ═══ CART LOGIC ══════════════════════════════════════════ */
+(function () {
+  const PRICE = 800;
+  let cart = {}; // { productId: { name, img, qty } }
+
+  const cartBtn     = document.getElementById('cartBtn');
+  const cartClose   = document.getElementById('cartClose');
+  const cartOverlay = document.getElementById('cartOverlay');
+  const cartDrawer  = document.getElementById('cartDrawer');
+  const cartItems   = document.getElementById('cartItems');
+  const cartCount   = document.getElementById('cartCount');
+  const cartItemCount = document.getElementById('cartItemCount');
+  const cartSubtotal  = document.getElementById('cartSubtotal');
+
+  const PRODUCT_NAMES = {
+    'blue-begonia':    'Blue Begonia',
+    'prosperity-peony':'Prosperity Peony',
+    'verdant-vine':    'Verdant Vine',
+    'golden-apricot':  'Golden Apricot'
+  };
+
+  const PRODUCT_IMGS = {
+    'blue-begonia':    'assets/blue-begonia.png',
+    'prosperity-peony':'assets/prosperity-peony.png',
+    'verdant-vine':    'assets/verdant-vine.png',
+    'golden-apricot':  'assets/golden-apricot.png'
+  };
+
+  /* Open / close drawer */
+  function openCart() {
+    cartDrawer.classList.add('open');
+    cartOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCart() {
+    cartDrawer.classList.remove('open');
+    cartOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  cartBtn.addEventListener('click', openCart);
+  cartClose.addEventListener('click', closeCart);
+  cartOverlay.addEventListener('click', closeCart);
+
+  /* Update cart count badge */
+  function updateBadge() {
+    const total = Object.values(cart).reduce((s, i) => s + i.qty, 0);
+    cartCount.textContent = total;
+    cartItemCount.textContent = total;
+    if (total > 0) {
+      cartCount.classList.add('visible');
+    } else {
+      cartCount.classList.remove('visible');
+    }
+    const subtotal = Object.values(cart).reduce((s, i) => s + i.qty * PRICE, 0);
+    cartSubtotal.textContent = 'NT$ ' + subtotal.toLocaleString();
+  }
+
+  /* Render cart items */
+  function renderCart() {
+    const keys = Object.keys(cart);
+    if (keys.length === 0) {
+      cartItems.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
+      return;
+    }
+
+    cartItems.innerHTML = keys.map(id => {
+      const item = cart[id];
+      return `
+        <div class="cart-item" data-id="${id}">
+          <div class="cart-item__img">
+            <img src="${PRODUCT_IMGS[id]}" alt="${item.name}" />
+          </div>
+          <div class="cart-item__info">
+            <p class="cart-item__name">${item.name}</p>
+            <p class="cart-item__price">NT$ ${PRICE.toLocaleString()}</p>
+            <div class="cart-item__qty">
+              <button class="qty-btn cart-qty-minus">−</button>
+              <span class="qty-val">${item.qty}</span>
+              <button class="qty-btn cart-qty-plus">+</button>
+            </div>
+          </div>
+          <button class="cart-item__remove" data-id="${id}" aria-label="Remove">✕</button>
+        </div>
+      `;
+    }).join('');
+
+    /* Qty and remove events inside drawer */
+    cartItems.querySelectorAll('.cart-item').forEach(row => {
+      const id = row.dataset.id;
+
+      row.querySelector('.cart-qty-minus').addEventListener('click', () => {
+        if (cart[id].qty > 1) {
+          cart[id].qty--;
+        } else {
+          delete cart[id];
+        }
+        renderCart();
+        updateBadge();
+      });
+
+      row.querySelector('.cart-qty-plus').addEventListener('click', () => {
+        cart[id].qty++;
+        renderCart();
+        updateBadge();
+      });
+
+      row.querySelector('.cart-item__remove').addEventListener('click', () => {
+        delete cart[id];
+        renderCart();
+        updateBadge();
+      });
+    });
+  }
+
+  /* Add to cart — wire up all product cards */
+  document.querySelectorAll('.product-card').forEach(card => {
+    const id    = card.dataset.product;
+    const minus = card.querySelector('.qty-minus');
+    const plus  = card.querySelector('.qty-plus');
+    const qtyEl = card.querySelector('.qty-val');
+    const addBtn= card.querySelector('.product-card__add');
+    const toast = card.querySelector('.product-card__toast');
+    let qty = 1;
+
+    minus.addEventListener('click', () => {
+      if (qty > 1) { qty--; qtyEl.textContent = qty; }
+    });
+
+    plus.addEventListener('click', () => {
+      qty++;
+      qtyEl.textContent = qty;
+    });
+
+    addBtn.addEventListener('click', () => {
+      if (cart[id]) {
+        cart[id].qty += qty;
+      } else {
+        cart[id] = { name: PRODUCT_NAMES[id], qty };
+      }
+
+      updateBadge();
+      renderCart();
+
+      /* Toast */
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+
+      /* Reset qty */
+      qty = 1;
+      qtyEl.textContent = 1;
+    });
+  });
 })();
