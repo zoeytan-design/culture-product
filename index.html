@@ -9,14 +9,13 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-
-  <!-- NAV -->
   <nav class="nav" id="nav">
     <div class="nav__inner">
       <a href="#" class="nav__brand" id="navBrand" data-goto="hero">Tile &amp; Trace</a>
@@ -43,63 +42,56 @@
     </div>
   </nav>
 
-  <!-- FULL SCREEN STAGE -->
-  <div class="stage" id="stage">
+  <main class="stage" id="stage">
 
     <!-- SCENE 01: HERO -->
     <section class="scene scene--hero active" id="scene-hero">
       <div class="soft-glow glow-hero-blue"></div>
       <div class="soft-glow glow-hero-coral"></div>
 
-      <div class="scene__inner hero-inner">
-        <div class="hero-text">
-          <p class="scene-label s1-label">花磚流光玻璃杯墊系列</p>
+      <div class="hero-media s1-visual">
+        <img src="assets/product1.png" alt="Tile & Trace product collection" />
+      </div>
 
-          <h1 class="hero-title">
-            <span class="masked-text">
-              <span class="masked-text__inner s1-title">Tile &amp; Trace</span>
-            </span>
-          </h1>
+      <div class="hero-copy">
+        <p class="scene-label s1-label">花磚流光玻璃杯墊系列</p>
 
-          <p class="hero-tagline">
-            <span class="split-line"><span>Taiwanese floral tiles,</span></span>
-            <span class="split-line"><span>reimagined through light and glass.</span></span>
-          </p>
+        <h1 class="hero-title">
+          <span class="masked-text">
+            <span class="masked-text__inner s1-title">Tile &amp; Trace</span>
+          </span>
+        </h1>
 
-          <p class="hero-sub s1-sub">
-            A frosted glass coaster collection inspired by the visual memory of traditional Taiwanese floral tiles.
-          </p>
+        <p class="hero-tagline">
+          <span class="split-line"><span>Taiwanese floral tiles,</span></span>
+          <span class="split-line"><span>reimagined through light and glass.</span></span>
+        </p>
 
-          <div class="hero-actions s1-actions">
-            <button class="btn btn--primary" data-goto="collection">Explore Collection</button>
-            <button class="btn btn--ghost" data-goto="contact">Contact Us</button>
-          </div>
-        </div>
+        <p class="hero-sub s1-sub">
+          A frosted glass coaster collection inspired by the visual memory of traditional Taiwanese floral tiles.
+        </p>
 
-        <div class="hero-visual s1-visual">
-          <div class="image-panel image-panel--hero">
-            <img src="assets/product1.png" alt="Tile & Trace product collection" />
-          </div>
+        <div class="hero-actions s1-actions">
+          <button class="btn btn--primary" data-goto="collection">Explore Collection</button>
+          <button class="btn btn--ghost" data-goto="contact">Contact Us</button>
         </div>
       </div>
 
       <div class="scroll-hint"><span></span></div>
     </section>
 
-    <!-- SCENE 02: VALUE -->
+    <!-- SCENE 02: WHY THIS COLLECTION -->
     <section class="scene scene--value" id="scene-value">
       <div class="soft-glow glow-value"></div>
 
-      <div class="value-visual-center">
-        <div class="image-panel image-panel--value">
-          <img src="assets/product2.png" alt="Tile & Trace frosted glass coaster" />
-        </div>
+      <div class="value-media value-visual-center">
+        <img src="assets/product2.png" alt="Tile & Trace frosted glass coaster" />
       </div>
 
       <div class="value-overlay">
         <div class="value-header">
           <p class="scene-label value-label">Why This Collection</p>
-          <h2 class="value-title">A cultural object<br>for everyday rituals.</h2>
+          <h2 class="value-title">A cultural object<br />for everyday rituals.</h2>
         </div>
 
         <div class="value-floating-labels">
@@ -123,7 +115,7 @@
             <span class="vl-num">03</span>
             <div class="vl-content">
               <h3>Gift Ready</h3>
-              <p>Color-matched collectible box included.</p>
+              <p>A refined package completes the collection.</p>
             </div>
           </div>
         </div>
@@ -134,62 +126,60 @@
     <section class="scene scene--collection" id="scene-collection">
       <div class="collection-bg" id="collectionBg"></div>
 
-      <div class="scene__inner collection-inner">
-        <div class="product-visual">
-          <div class="product-frame pf-0 active">
-            <img src="assets/blue-begonia.png" alt="Blue Begonia coaster" />
-          </div>
-
-          <div class="product-frame pf-1">
-            <img src="assets/prosperity-peony.png" alt="Prosperity Peony coaster" />
-          </div>
-
-          <div class="product-frame pf-2">
-            <img src="assets/verdant-vine.png" alt="Verdant Vine Blossom coaster" />
-          </div>
-
-          <div class="product-frame pf-3">
-            <img src="assets/golden-apricot.png" alt="Golden Apricot Bloom coaster" />
-          </div>
+      <div class="product-visual">
+        <div class="product-frame pf-0 active">
+          <img src="assets/blue-begonia.png" alt="Blue Begonia coaster" />
         </div>
 
-        <div class="collection-text">
-          <div class="progress-dots">
-            <span class="pdot active"></span>
-            <span class="pdot"></span>
-            <span class="pdot"></span>
-            <span class="pdot"></span>
+        <div class="product-frame pf-1">
+          <img src="assets/prosperity-peony.png" alt="Prosperity Peony coaster" />
+        </div>
+
+        <div class="product-frame pf-2">
+          <img src="assets/verdant-vine.png" alt="Verdant Vine Blossom coaster" />
+        </div>
+
+        <div class="product-frame pf-3">
+          <img src="assets/golden-apricot.png" alt="Golden Apricot Bloom coaster" />
+        </div>
+      </div>
+
+      <div class="collection-text">
+        <div class="progress-dots">
+          <span class="pdot active"></span>
+          <span class="pdot"></span>
+          <span class="pdot"></span>
+          <span class="pdot"></span>
+        </div>
+
+        <p class="collection-num" id="collectionNum">01 / 04</p>
+
+        <h2 class="collection-name">
+          <span class="masked-text">
+            <span class="masked-text__inner" id="collectionName">Blue Begonia</span>
+          </span>
+        </h2>
+
+        <p class="collection-cn" id="collectionCn">湛藍海棠</p>
+
+        <p class="collection-desc" id="collectionDesc">
+          A calm blue glass coaster inspired by the classic begonia motif.
+        </p>
+
+        <div class="collection-meta">
+          <div class="meta-row">
+            <span class="meta-label">Motif</span>
+            <span class="meta-val" id="metaMotif">Begonia flower</span>
           </div>
 
-          <p class="collection-num" id="collectionNum">01 / 04</p>
+          <div class="meta-row">
+            <span class="meta-label">Color</span>
+            <span class="meta-val" id="metaColor">Translucent blue</span>
+          </div>
 
-          <h2 class="collection-name">
-            <span class="masked-text">
-              <span class="masked-text__inner" id="collectionName">Blue Begonia</span>
-            </span>
-          </h2>
-
-          <p class="collection-cn" id="collectionCn">湛藍海棠</p>
-
-          <p class="collection-desc" id="collectionDesc">
-            A calm blue glass coaster inspired by the classic begonia motif.
-          </p>
-
-          <div class="collection-meta">
-            <div class="meta-row">
-              <span class="meta-label">Motif</span>
-              <span class="meta-val" id="metaMotif">Begonia flower</span>
-            </div>
-
-            <div class="meta-row">
-              <span class="meta-label">Color</span>
-              <span class="meta-val" id="metaColor">Translucent blue</span>
-            </div>
-
-            <div class="meta-row">
-              <span class="meta-label">Meaning</span>
-              <span class="meta-val" id="metaMeaning">Elegance and domestic memory</span>
-            </div>
+          <div class="meta-row">
+            <span class="meta-label">Meaning</span>
+            <span class="meta-val" id="metaMeaning">Elegance and domestic memory</span>
           </div>
         </div>
       </div>
@@ -197,55 +187,43 @@
 
     <!-- SCENE 04: MATERIAL & PACKAGING -->
     <section class="scene scene--material" id="scene-material">
-      <div class="soft-glow glow-material"></div>
-
-      <div class="material-inner">
-        <div class="material-visual-stage">
-
-          <div class="material-visual material-visual-1">
-            <div class="image-panel image-panel--material">
-              <img src="assets/material-detail.png" alt="Frosted glass material detail" />
-            </div>
-          </div>
-
-          <div class="material-visual material-visual-2">
-            <div class="image-panel image-panel--material">
-              <img src="assets/cultural-pattern.png" alt="Taiwanese floral tile pattern detail" />
-            </div>
-          </div>
-
-          <div class="material-visual material-visual-3">
-            <div class="image-panel image-panel--material image-panel--packaging">
-              <img src="assets/packaging.png" alt="Tile & Trace packaging" />
-            </div>
-          </div>
-
+      <div class="material-visual-stage">
+        <div class="material-visual material-visual-1 active">
+          <img src="assets/material-detail.png" alt="Frosted glass material detail" />
         </div>
 
-        <div class="material-text-panel">
-          <div class="material-copy material-copy-1">
-            <p class="scene-label">Material</p>
-            <h2 class="ms-heading">Frosted translucent<br>glass.</h2>
-            <p class="ms-sub">
-              The soft matte surface and polished rounded edges create a light-reflecting object that feels delicate and functional.
-            </p>
-          </div>
+        <div class="material-visual material-visual-2">
+          <img src="assets/cultural-pattern.png" alt="Taiwanese floral tile pattern detail" />
+        </div>
 
-          <div class="material-copy material-copy-2">
-            <p class="scene-label">Pattern</p>
-            <h2 class="ms-heading">Minimal printed<br>tile motifs.</h2>
-            <p class="ms-sub">
-              Traditional floral elements are extracted and simplified into clean printed graphics on glass.
-            </p>
-          </div>
+        <div class="material-visual material-visual-3">
+          <img src="assets/packaging.png" alt="Tile & Trace packaging" />
+        </div>
+      </div>
 
-          <div class="material-copy material-copy-3">
-            <p class="scene-label">Packaging</p>
-            <h2 class="ms-heading">A box for<br>each memory.</h2>
-            <p class="ms-sub">
-              A refined product packaging design that completes the coaster collection as a cultural gifting object.
-            </p>
-          </div>
+      <div class="material-text-panel">
+        <div class="material-copy material-copy-1 active">
+          <p class="scene-label">Material</p>
+          <h2 class="ms-heading">Frosted translucent<br />glass.</h2>
+          <p class="ms-sub">
+            The soft matte surface and polished rounded edges create a light-reflecting object that feels delicate and functional.
+          </p>
+        </div>
+
+        <div class="material-copy material-copy-2">
+          <p class="scene-label">Pattern</p>
+          <h2 class="ms-heading">Minimal printed<br />tile motifs.</h2>
+          <p class="ms-sub">
+            Traditional floral elements are extracted and simplified into clean printed graphics on glass.
+          </p>
+        </div>
+
+        <div class="material-copy material-copy-3">
+          <p class="scene-label">Packaging</p>
+          <h2 class="ms-heading">A box for<br />each memory.</h2>
+          <p class="ms-sub">
+            A refined product packaging design completes the coaster collection as a cultural gifting object.
+          </p>
         </div>
       </div>
 
@@ -266,7 +244,7 @@
         <h2 class="contact-title">
           <span class="masked-text">
             <span class="masked-text__inner c-title">
-              Bring a piece of Taiwanese<br>memory into your everyday space.
+              Bring a piece of Taiwanese<br />memory into your everyday space.
             </span>
           </span>
         </h2>
@@ -282,27 +260,9 @@
         </div>
 
         <div class="contact-links c-links">
-          <a href="mailto:cytan0419@gmail.com" class="contact-link">
-            <svg viewBox="0 0 20 20" fill="none">
-              <path d="M2 4h16v12H2V4zm0 0l8 7 8-7" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
-            </svg>
-            cytan0419@gmail.com
-          </a>
-
-          <a href="https://github.com/zoeytan-design" target="_blank" rel="noopener" class="contact-link">
-            <svg viewBox="0 0 20 20" fill="none">
-              <path d="M10 2C5.58 2 2 5.58 2 10c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0018 10c0-4.42-3.58-8-8-8z" fill="currentColor"/>
-            </svg>
-            zoeytan-design
-          </a>
-
-          <a href="https://www.linkedin.com/in/zoey-t-5549b215a/" target="_blank" rel="noopener" class="contact-link">
-            <svg viewBox="0 0 20 20" fill="none">
-              <rect x="2" y="2" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.2"/>
-              <path d="M6 8v6M6 6v.01M10 14v-3a2 2 0 014 0v3M10 8v6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-            </svg>
-            Zoey Tan
-          </a>
+          <a href="mailto:cytan0419@gmail.com" class="contact-link">cytan0419@gmail.com</a>
+          <a href="https://github.com/zoeytan-design" target="_blank" rel="noopener" class="contact-link">zoeytan-design</a>
+          <a href="https://www.linkedin.com/in/zoey-t-5549b215a/" target="_blank" rel="noopener" class="contact-link">Zoey Tan</a>
         </div>
       </div>
 
@@ -312,8 +272,7 @@
         <p class="footer-copy">&copy; 2026 Zoey Tan. All rights reserved.</p>
       </footer>
     </section>
-
-  </div>
+  </main>
 
   <div class="stage-pip-bar" id="pipBar"></div>
 
