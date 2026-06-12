@@ -294,6 +294,215 @@ ul {
   display: flex;
 }
 
+/* ═══ FROSTED PANELS ════════════════════════════════ */
+
+.frosted-panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  overflow: hidden;
+  background: rgba(255, 253, 248, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow:
+    0 32px 80px rgba(80, 80, 80, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.frosted-panel img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+}
+
+.frosted-panel img.is-missing {
+  display: none;
+}
+
+.frosted-panel--hero {
+  aspect-ratio: 1 / 1;
+  border-radius: 28px;
+}
+
+.frosted-panel--value {
+  width: min(460px, 62vmin);
+  aspect-ratio: 1 / 1;
+  border-radius: 28px;
+}
+
+.frosted-panel--material {
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+}
+
+.frosted-panel--pattern {
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+}
+
+.frosted-panel--boxes {
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  padding: 20px;
+}
+
+.frosted-panel--gold {
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  background: rgba(200, 165, 90, 0.08);
+  border: 1px solid rgba(200, 165, 90, 0.3);
+}
+
+/* ═══ COASTER PLACEHOLDERS ═══════════════════════════ */
+
+.coaster-ph {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coaster-ph::before {
+  content: '';
+  width: 65%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  opacity: 0.18;
+}
+
+.coaster-ph--blue::before  { background: var(--blue); }
+.coaster-ph--coral::before { background: var(--coral); }
+.coaster-ph--green::before { background: var(--green); }
+.coaster-ph--yellow::before{ background: var(--yellow); }
+
+/* ═══ MINI COASTERS (Hero grid) ══════════════════════ */
+
+.hero-coasters-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 24px;
+  align-items: center;
+  justify-items: center;
+}
+
+.mini-coaster {
+  width: 80%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  opacity: 0.22;
+}
+
+.mini-coaster--blue   { background: var(--blue); }
+.mini-coaster--coral  { background: var(--coral); }
+.mini-coaster--green  { background: var(--green); }
+.mini-coaster--yellow { background: var(--yellow); }
+
+/* ═══ MATERIAL PLACEHOLDERS ══════════════════════════ */
+
+.material-ph-circle {
+  width: 70%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(200,165,90,0.25), rgba(200,165,90,0.05) 70%);
+  border: 1px solid rgba(200, 165, 90, 0.2);
+}
+
+.pattern-ph {
+  width: 80%;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(121,183,216,0.12) 0px,
+      rgba(121,183,216,0.12) 2px,
+      transparent 2px,
+      transparent 12px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(121,183,216,0.12) 0px,
+      rgba(121,183,216,0.12) 2px,
+      transparent 2px,
+      transparent 12px
+    );
+  border: 1px solid rgba(121, 183, 216, 0.2);
+}
+
+.gold-foil-ph {
+  width: 75%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 2px solid rgba(200, 165, 90, 0.35);
+  background: radial-gradient(circle at 40% 35%, rgba(200,165,90,0.18), rgba(200,165,90,0.04) 65%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.6),
+    0 8px 32px rgba(200,165,90,0.1);
+}
+
+/* ═══ PACKAGING GRID ═════════════════════════════════ */
+
+.pkg-boxes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.pkg-box {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(255, 253, 248, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pkg-box img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+}
+
+.pkg-box img.is-missing {
+  display: none;
+}
+
+.pkg-ph {
+  width: 60%;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  opacity: 0.3;
+}
+
+.pkg-ph--blue   { background: var(--blue); }
+.pkg-ph--coral  { background: var(--coral); }
+.pkg-ph--green  { background: var(--green); }
+.pkg-ph--yellow { background: var(--yellow); }
+
 /* ═══ IMAGE PANELS ═══════════════════════════════════ */
 
 .image-panel {
@@ -837,8 +1046,10 @@ ul {
 .scene--contact {
   background: var(--white);
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 .contact-glow {
@@ -863,6 +1074,7 @@ ul {
   padding: 5rem 6vw 3rem;
   position: relative;
   z-index: 1;
+  min-height: min-content;
 }
 
 .contact-title {
@@ -1044,6 +1256,12 @@ ul {
   .collection-inner {
     flex-direction: column;
     text-align: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 
   .product-visual {
