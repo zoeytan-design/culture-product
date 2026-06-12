@@ -19,9 +19,18 @@
       <ul class="nav__links">
         <li><a href="#" data-goto="collection">Collection</a></li>
         <li><a href="#" data-goto="material">Material</a></li>
+        <li><a href="#" data-goto="shop">Shop</a></li>
         <li><a href="#" data-goto="contact">Contact</a></li>
       </ul>
       <a href="#" class="nav__cta" data-goto="contact">Contact Us</a>
+      <button class="nav__cart" id="cartBtn" aria-label="Open cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span class="nav__cart-count" id="cartCount">0</span>
+      </button>
       <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -29,6 +38,7 @@
     <div class="nav__mobile" id="mobileMenu">
       <a href="#" data-goto="collection">Collection</a>
       <a href="#" data-goto="material">Material</a>
+      <a href="#" data-goto="shop">Shop</a>
       <a href="#" data-goto="contact">Contact</a>
     </div>
   </nav>
@@ -182,6 +192,109 @@
       </div>
     </div>
 
+    <!-- SCENE: SHOP -->
+    <div class="scene scene--shop" id="scene-shop">
+      <!-- Animated soft glow blobs -->
+      <div class="shop-glow shop-glow--blue"></div>
+      <div class="shop-glow shop-glow--coral"></div>
+      <div class="shop-glow shop-glow--green"></div>
+      <div class="shop-glow shop-glow--yellow"></div>
+
+      <div class="shop-inner">
+        <div class="shop-header">
+          <p class="scene-label">Collection</p>
+          <h2 class="shop-title">Choose Your Tile Memory</h2>
+        </div>
+        <div class="shop-grid">
+
+          <!-- Card 1: Blue Begonia -->
+          <div class="product-card" data-product="blue-begonia">
+            <div class="product-card__img-wrap">
+              <img src="assets/blue-begonia.png" alt="Blue Begonia" />
+              <div class="product-card__overlay">
+                <span class="product-card__tag">湛藍海棠</span>
+              </div>
+            </div>
+            <div class="product-card__body">
+              <h3 class="product-card__name">Blue Begonia</h3>
+              <p class="product-card__price">NT$ 800</p>
+              <div class="product-card__qty">
+                <button class="qty-btn qty-minus" aria-label="Decrease">−</button>
+                <span class="qty-val">1</span>
+                <button class="qty-btn qty-plus" aria-label="Increase">+</button>
+              </div>
+              <button class="product-card__add">Add to Cart</button>
+              <p class="product-card__toast">Added to cart ✓</p>
+            </div>
+          </div>
+
+          <!-- Card 2: Prosperity Peony -->
+          <div class="product-card" data-product="prosperity-peony">
+            <div class="product-card__img-wrap">
+              <img src="assets/prosperity-peony.png" alt="Prosperity Peony" />
+              <div class="product-card__overlay">
+                <span class="product-card__tag">富貴牡丹</span>
+              </div>
+            </div>
+            <div class="product-card__body">
+              <h3 class="product-card__name">Prosperity Peony</h3>
+              <p class="product-card__price">NT$ 800</p>
+              <div class="product-card__qty">
+                <button class="qty-btn qty-minus" aria-label="Decrease">−</button>
+                <span class="qty-val">1</span>
+                <button class="qty-btn qty-plus" aria-label="Increase">+</button>
+              </div>
+              <button class="product-card__add">Add to Cart</button>
+              <p class="product-card__toast">Added to cart ✓</p>
+            </div>
+          </div>
+
+          <!-- Card 3: Verdant Vine -->
+          <div class="product-card" data-product="verdant-vine">
+            <div class="product-card__img-wrap">
+              <img src="assets/verdant-vine.png" alt="Verdant Vine" />
+              <div class="product-card__overlay">
+                <span class="product-card__tag">翠綠蔓藤</span>
+              </div>
+            </div>
+            <div class="product-card__body">
+              <h3 class="product-card__name">Verdant Vine</h3>
+              <p class="product-card__price">NT$ 800</p>
+              <div class="product-card__qty">
+                <button class="qty-btn qty-minus" aria-label="Decrease">−</button>
+                <span class="qty-val">1</span>
+                <button class="qty-btn qty-plus" aria-label="Increase">+</button>
+              </div>
+              <button class="product-card__add">Add to Cart</button>
+              <p class="product-card__toast">Added to cart ✓</p>
+            </div>
+          </div>
+
+          <!-- Card 4: Golden Apricot -->
+          <div class="product-card" data-product="golden-apricot">
+            <div class="product-card__img-wrap">
+              <img src="assets/golden-apricot.png" alt="Golden Apricot" />
+              <div class="product-card__overlay">
+                <span class="product-card__tag">金色杏花</span>
+              </div>
+            </div>
+            <div class="product-card__body">
+              <h3 class="product-card__name">Golden Apricot</h3>
+              <p class="product-card__price">NT$ 800</p>
+              <div class="product-card__qty">
+                <button class="qty-btn qty-minus" aria-label="Decrease">−</button>
+                <span class="qty-val">1</span>
+                <button class="qty-btn qty-plus" aria-label="Increase">+</button>
+              </div>
+              <button class="product-card__add">Add to Cart</button>
+              <p class="product-card__toast">Added to cart ✓</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
     <!-- SCENE: CONTACT -->
     <div class="scene scene--contact" id="scene-contact">
       <div class="contact-glow"></div>
@@ -221,6 +334,25 @@
 
   <!-- Scroll-position progress indicator (right edge) -->
   <div class="stage-pip-bar" id="pipBar" aria-hidden="true"></div>
+
+  <!-- CART DRAWER -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer__header">
+      <h3 class="cart-drawer__title">CART (<span id="cartItemCount">0</span>)</h3>
+      <button class="cart-drawer__close" id="cartClose">CLOSE</button>
+    </div>
+    <div class="cart-drawer__items" id="cartItems">
+      <p class="cart-empty">Your cart is empty.</p>
+    </div>
+    <div class="cart-drawer__footer">
+      <div class="cart-subtotal">
+        <span>SUBTOTAL</span>
+        <span id="cartSubtotal">NT$ 0</span>
+      </div>
+      <button class="cart-checkout">CHECKOUT →</button>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="script.js"></script>
