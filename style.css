@@ -1342,57 +1342,43 @@ ul {
 /* ═══ NAV CART BUTTON ════════════════════════════════ */
 
 .nav__cart {
-  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  flex-shrink: 0;
+  gap: 6px;
+  padding: 0.5rem 1.3rem;
+  border-radius: 60px;
+  border: 1.5px solid var(--mist);
+  font-family: var(--sans);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--charcoal);
-  transition: background 0.25s, transform 0.25s;
+  flex-shrink: 0;
+  transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+  cursor: pointer;
 }
 
 .nav__cart svg {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
 }
 
 .nav__cart:hover {
-  background: rgba(58, 58, 54, 0.07);
-  transform: scale(1.08);
-}
-
-.nav__cart-count {
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--coral);
-  color: #fff;
-  font-size: 9px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transform: scale(0);
-  transition: opacity 0.2s, transform 0.2s;
-}
-
-.nav__cart-count.visible {
-  opacity: 1;
-  transform: scale(1);
+  border-color: var(--charcoal);
+  box-shadow: 0 2px 16px rgba(200, 165, 90, 0.2);
 }
 
 /* ═══ SHOP SCENE ═════════════════════════════════════ */
 
 .scene--shop {
   background: var(--white);
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 /* Animated glow blobs */
