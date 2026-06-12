@@ -378,3 +378,86 @@ ul { list-style: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ══════════════════════════════════════════════════════
+   Stability Patch — prevents scene flicker and layout jumps
+   ══════════════════════════════════════════════════════ */
+
+/* GSAP controls opacity/visibility through autoAlpha. Keep CSS passive. */
+.scene {
+  visibility: hidden;
+  will-change: opacity;
+  transform: translateZ(0);
+}
+
+.scene.active {
+  visibility: visible;
+}
+
+/* Stable GPU layers for animated visual elements */
+.product-frame,
+.material-visual,
+.value-visual-center,
+.frosted-panel,
+.collection-text,
+.material-copy {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Product frames are layered; JS handles their crossfade. */
+.product-frame {
+  visibility: hidden;
+  transition: none !important;
+  opacity: 0;
+  transform: scale(0.96) rotate(-1.5deg);
+}
+
+.product-frame.active {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Material visuals stay layered inside the fixed visual stage. */
+.material-visual {
+  visibility: hidden;
+  transition: none !important;
+  object-fit: contain;
+}
+
+.material-copy {
+  visibility: hidden;
+  transition: none !important;
+}
+
+/* Missing images should not collapse the layout. Placeholders remain visible. */
+img.is-missing {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Keep placeholder layers visible behind missing images. */
+.frosted-panel > img.is-missing + *,
+.product-frame > img.is-missing + *,
+.pkg-box > img.is-missing + * {
+  visibility: visible;
+}
+
+/* More stable material section text. Images cannot push text around. */
+.material-visual-stage {
+  min-height: min(72vh, 520px);
+}
+
+.material-text-panel {
+  min-height: 280px;
+}
+
+/* Slightly reduce expensive filter rendering on large panels. */
+@media (min-width: 901px) {
+  .frosted-panel--value,
+  .product-frame,
+  .material-visual {
+    backface-visibility: hidden;
+  }
+}
+
