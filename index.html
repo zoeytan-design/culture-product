@@ -3,29 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Tile & Trace｜花磚流光</title>
   <meta name="description" content="Tile & Trace — Taiwanese floral tiles, reimagined through light and glass." />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
-  <!-- NAV (always on top) -->
+  <!-- NAV -->
   <nav class="nav" id="nav">
     <div class="nav__inner">
       <a href="#" class="nav__brand" id="navBrand" data-goto="hero">Tile &amp; Trace</a>
+
       <ul class="nav__links">
         <li><a href="#" data-goto="collection">Collection</a></li>
         <li><a href="#" data-goto="material">Material</a></li>
         <li><a href="#" data-goto="contact">Contact</a></li>
       </ul>
+
       <a href="#" class="nav__cta" data-goto="contact">Contact Us</a>
+
       <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
     </div>
+
     <div class="nav__mobile" id="mobileMenu">
       <a href="#" data-goto="collection">Collection</a>
       <a href="#" data-goto="material">Material</a>
@@ -33,220 +43,279 @@
     </div>
   </nav>
 
-  <!-- ══════════════════════════════════════════════════
-       FULL-SCREEN STAGE
-       All scenes sit here as position:absolute layers.
-       Only one is visible at a time (class="active").
-  ══════════════════════════════════════════════════════ -->
+  <!-- FULL SCREEN STAGE -->
   <div class="stage" id="stage">
 
-    <!-- SCENE: HERO -->
-    <div class="scene scene--hero active" id="scene-hero">
+    <!-- SCENE 01: HERO -->
+    <section class="scene scene--hero active" id="scene-hero">
       <div class="soft-glow glow-hero-blue"></div>
       <div class="soft-glow glow-hero-coral"></div>
+
       <div class="scene__inner hero-inner">
         <div class="hero-text">
           <p class="scene-label s1-label">花磚流光玻璃杯墊系列</p>
+
           <h1 class="hero-title">
-            <span class="masked-text"><span class="masked-text__inner s1-title">Tile &amp; Trace</span></span>
+            <span class="masked-text">
+              <span class="masked-text__inner s1-title">Tile &amp; Trace</span>
+            </span>
           </h1>
+
           <p class="hero-tagline">
             <span class="split-line"><span>Taiwanese floral tiles,</span></span>
             <span class="split-line"><span>reimagined through light and glass.</span></span>
           </p>
-          <p class="hero-sub s1-sub">A frosted glass coaster collection inspired by the visual memory of traditional Taiwanese floral tiles.</p>
+
+          <p class="hero-sub s1-sub">
+            A frosted glass coaster collection inspired by the visual memory of traditional Taiwanese floral tiles.
+          </p>
+
           <div class="hero-actions s1-actions">
             <button class="btn btn--primary" data-goto="collection">Explore Collection</button>
-            <button class="btn btn--ghost"   data-goto="contact">Contact Us</button>
+            <button class="btn btn--ghost" data-goto="contact">Contact Us</button>
           </div>
         </div>
-        <div class="hero-visual s1-visual">
-          <div class="frosted-panel frosted-panel--hero">
-            <img src="assets/product1.png" alt="Tile &amp; Trace glass coasters" onerror="this.classList.add('is-missing')" />
-            <div class="hero-coasters-grid" aria-hidden="true">
-              <div class="mini-coaster mini-coaster--blue"></div>
-              <div class="mini-coaster mini-coaster--coral"></div>
-              <div class="mini-coaster mini-coaster--green"></div>
-              <div class="mini-coaster mini-coaster--yellow"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="scroll-hint"><span></span></div>
-    </div>
 
-    <!-- SCENE: VALUE -->
-    <div class="scene scene--value" id="scene-value">
-      <div class="soft-glow glow-value"></div>
-      <div class="value-visual-center">
-        <div class="frosted-panel frosted-panel--value">
-          <img src="assets/images/blue-begonia.jpg" alt="" onerror="this.classList.add('is-missing')" />
-          <div class="coaster-ph coaster-ph--blue"></div>
+        <div class="hero-visual s1-visual">
+          <div class="image-panel image-panel--hero">
+            <img src="assets/product1.png" alt="Tile & Trace product collection" />
+          </div>
         </div>
       </div>
+
+      <div class="scroll-hint"><span></span></div>
+    </section>
+
+    <!-- SCENE 02: VALUE -->
+    <section class="scene scene--value" id="scene-value">
+      <div class="soft-glow glow-value"></div>
+
+      <div class="value-visual-center">
+        <div class="image-panel image-panel--value">
+          <img src="assets/product2.png" alt="Tile & Trace frosted glass coaster" />
+        </div>
+      </div>
+
       <div class="value-overlay">
         <div class="value-header">
           <p class="scene-label value-label">Why This Collection</p>
           <h2 class="value-title">A cultural object<br>for everyday rituals.</h2>
         </div>
+
         <div class="value-floating-labels">
           <div class="value-label-item value-point-1">
             <span class="vl-num">01</span>
-            <div class="vl-content"><h3>Frosted Glass</h3><p>Soft translucent glass that shifts with light.</p></div>
+            <div class="vl-content">
+              <h3>Frosted Glass</h3>
+              <p>Soft translucent glass that shifts with light.</p>
+            </div>
           </div>
+
           <div class="value-label-item value-point-2">
             <span class="vl-num">02</span>
-            <div class="vl-content"><h3>Tile Motif</h3><p>Traditional patterns redrawn on glass.</p></div>
+            <div class="vl-content">
+              <h3>Tile Motif</h3>
+              <p>Traditional patterns redrawn on glass.</p>
+            </div>
           </div>
+
           <div class="value-label-item value-point-3">
             <span class="vl-num">03</span>
-            <div class="vl-content"><h3>Gift Ready</h3><p>Color-matched collectible box included.</p></div>
+            <div class="vl-content">
+              <h3>Gift Ready</h3>
+              <p>Color-matched collectible box included.</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- SCENE: COLLECTION -->
-    <div class="scene scene--collection" id="scene-collection">
+    <!-- SCENE 03: COLLECTION -->
+    <section class="scene scene--collection" id="scene-collection">
       <div class="collection-bg" id="collectionBg"></div>
+
       <div class="scene__inner collection-inner">
         <div class="product-visual">
           <div class="product-frame pf-0 active">
-            <img src="assets/images/blue-begonia.jpg" alt="Blue Begonia" onerror="this.classList.add('is-missing')" />
-            <div class="coaster-ph coaster-ph--blue"></div>
+            <img src="assets/blue-begonia.png" alt="Blue Begonia coaster" />
           </div>
+
           <div class="product-frame pf-1">
-            <img src="assets/images/prosperity-peony.jpg" alt="Prosperity Peony" onerror="this.classList.add('is-missing')" />
-            <div class="coaster-ph coaster-ph--coral"></div>
+            <img src="assets/prosperity-peony.png" alt="Prosperity Peony coaster" />
           </div>
+
           <div class="product-frame pf-2">
-            <img src="assets/images/verdant-vine.jpg" alt="Verdant Vine" onerror="this.classList.add('is-missing')" />
-            <div class="coaster-ph coaster-ph--green"></div>
+            <img src="assets/verdant-vine.png" alt="Verdant Vine Blossom coaster" />
           </div>
+
           <div class="product-frame pf-3">
-            <img src="assets/images/golden-apricot.jpg" alt="Golden Apricot" onerror="this.classList.add('is-missing')" />
-            <div class="coaster-ph coaster-ph--yellow"></div>
+            <img src="assets/golden-apricot.png" alt="Golden Apricot Bloom coaster" />
           </div>
         </div>
+
         <div class="collection-text">
           <div class="progress-dots">
-            <span class="pdot active"></span><span class="pdot"></span>
-            <span class="pdot"></span><span class="pdot"></span>
+            <span class="pdot active"></span>
+            <span class="pdot"></span>
+            <span class="pdot"></span>
+            <span class="pdot"></span>
           </div>
+
           <p class="collection-num" id="collectionNum">01 / 04</p>
+
           <h2 class="collection-name">
-            <span class="masked-text"><span class="masked-text__inner" id="collectionName">Blue Begonia</span></span>
+            <span class="masked-text">
+              <span class="masked-text__inner" id="collectionName">Blue Begonia</span>
+            </span>
           </h2>
-          <p class="collection-cn"   id="collectionCn">湛藍海棠</p>
-          <p class="collection-desc" id="collectionDesc">A calm blue glass coaster inspired by the classic begonia motif.</p>
+
+          <p class="collection-cn" id="collectionCn">湛藍海棠</p>
+
+          <p class="collection-desc" id="collectionDesc">
+            A calm blue glass coaster inspired by the classic begonia motif.
+          </p>
+
           <div class="collection-meta">
-            <div class="meta-row"><span class="meta-label">Motif</span>  <span class="meta-val" id="metaMotif">Begonia flower</span></div>
-            <div class="meta-row"><span class="meta-label">Color</span>  <span class="meta-val" id="metaColor">Translucent blue</span></div>
-            <div class="meta-row"><span class="meta-label">Meaning</span><span class="meta-val" id="metaMeaning">Elegance and domestic memory</span></div>
+            <div class="meta-row">
+              <span class="meta-label">Motif</span>
+              <span class="meta-val" id="metaMotif">Begonia flower</span>
+            </div>
+
+            <div class="meta-row">
+              <span class="meta-label">Color</span>
+              <span class="meta-val" id="metaColor">Translucent blue</span>
+            </div>
+
+            <div class="meta-row">
+              <span class="meta-label">Meaning</span>
+              <span class="meta-val" id="metaMeaning">Elegance and domestic memory</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- SCENE: MATERIAL -->
-    <div class="scene scene--material" id="scene-material">
+    <!-- SCENE 04: MATERIAL & PACKAGING -->
+    <section class="scene scene--material" id="scene-material">
       <div class="soft-glow glow-material"></div>
+
       <div class="material-inner">
         <div class="material-visual-stage">
+
           <div class="material-visual material-visual-1">
-            <div class="frosted-panel frosted-panel--material">
-              <img src="assets/images/material-detail.jpg" alt="" onerror="this.classList.add('is-missing')" />
-              <div class="material-ph-circle"></div>
+            <div class="image-panel image-panel--material">
+              <img src="assets/material-detail.png" alt="Frosted glass material detail" />
             </div>
           </div>
+
           <div class="material-visual material-visual-2">
-            <div class="frosted-panel frosted-panel--pattern">
-              <img src="assets/images/cultural-pattern.jpg" alt="" onerror="this.classList.add('is-missing')" />
-              <div class="pattern-ph"></div>
+            <div class="image-panel image-panel--material">
+              <img src="assets/cultural-pattern.png" alt="Taiwanese floral tile pattern detail" />
             </div>
           </div>
+
           <div class="material-visual material-visual-3">
-            <div class="frosted-panel frosted-panel--boxes">
-              <div class="pkg-boxes-grid">
-                <div class="pkg-box"><img src="assets/images/packaging-blue.jpg"   alt="" onerror="this.classList.add('is-missing')" /><div class="pkg-ph pkg-ph--blue"></div></div>
-                <div class="pkg-box"><img src="assets/images/packaging-red.jpg"    alt="" onerror="this.classList.add('is-missing')" /><div class="pkg-ph pkg-ph--coral"></div></div>
-                <div class="pkg-box"><img src="assets/images/packaging-green.jpg"  alt="" onerror="this.classList.add('is-missing')" /><div class="pkg-ph pkg-ph--green"></div></div>
-                <div class="pkg-box"><img src="assets/images/packaging-yellow.jpg" alt="" onerror="this.classList.add('is-missing')" /><div class="pkg-ph pkg-ph--yellow"></div></div>
-              </div>
+            <div class="image-panel image-panel--material image-panel--packaging">
+              <img src="assets/packaging.png" alt="Tile & Trace packaging" />
             </div>
           </div>
-          <div class="material-visual material-visual-4">
-            <div class="frosted-panel frosted-panel--gold"><div class="gold-foil-ph"></div></div>
-          </div>
+
         </div>
+
         <div class="material-text-panel">
           <div class="material-copy material-copy-1">
             <p class="scene-label">Material</p>
             <h2 class="ms-heading">Frosted translucent<br>glass.</h2>
-            <p class="ms-sub">The soft matte surface and polished rounded edges create a light-reflecting object that feels delicate and functional.</p>
+            <p class="ms-sub">
+              The soft matte surface and polished rounded edges create a light-reflecting object that feels delicate and functional.
+            </p>
           </div>
+
           <div class="material-copy material-copy-2">
             <p class="scene-label">Pattern</p>
             <h2 class="ms-heading">Minimal printed<br>tile motifs.</h2>
-            <p class="ms-sub">Traditional floral elements extracted and simplified into clean printed graphics on glass.</p>
+            <p class="ms-sub">
+              Traditional floral elements are extracted and simplified into clean printed graphics on glass.
+            </p>
           </div>
+
           <div class="material-copy material-copy-3">
             <p class="scene-label">Packaging</p>
             <h2 class="ms-heading">A box for<br>each memory.</h2>
-            <p class="ms-sub">Color-matched rigid gift boxes — one for every coaster in the collection.</p>
-          </div>
-          <div class="material-copy material-copy-4">
-            <p class="scene-label">Detail</p>
-            <h2 class="ms-heading">Gold foil details<br>for cultural gifting.</h2>
-            <p class="ms-sub">Each coaster is paired with a color-matched rigid gift box with refined gold foil details.</p>
+            <p class="ms-sub">
+              A refined product packaging design that completes the coaster collection as a cultural gifting object.
+            </p>
           </div>
         </div>
       </div>
-      <div class="material-progress" id="materialProgress">
-        <span class="mprog active"></span><span class="mprog"></span>
-        <span class="mprog"></span><span class="mprog"></span>
-      </div>
-    </div>
 
-    <!-- SCENE: CONTACT -->
-    <div class="scene scene--contact" id="scene-contact">
+      <div class="material-progress" id="materialProgress">
+        <span class="mprog active"></span>
+        <span class="mprog"></span>
+        <span class="mprog"></span>
+      </div>
+    </section>
+
+    <!-- SCENE 05: CONTACT -->
+    <section class="scene scene--contact" id="scene-contact">
       <div class="contact-glow"></div>
+
       <div class="contact-inner">
         <p class="scene-label c-label">Get in Touch</p>
+
         <h2 class="contact-title">
-          <span class="masked-text"><span class="masked-text__inner c-title">Bring a piece of Taiwanese<br>memory into your everyday space.</span></span>
+          <span class="masked-text">
+            <span class="masked-text__inner c-title">
+              Bring a piece of Taiwanese<br>memory into your everyday space.
+            </span>
+          </span>
         </h2>
-        <p class="contact-copy c-copy">Tile &amp; Trace is designed for modern cultural gifting, home styling, and collectible lifestyle objects. For inquiries, collaboration, or pre-order information, get in touch.</p>
+
+        <p class="contact-copy c-copy">
+          Tile &amp; Trace is designed for modern cultural gifting, home styling, and collectible lifestyle objects.
+          For inquiries, collaboration, or pre-order information, get in touch.
+        </p>
+
         <div class="contact-actions c-actions">
           <a href="mailto:cytan0419@gmail.com" class="btn btn--primary">Contact Us</a>
           <a href="mailto:cytan0419@gmail.com?subject=Pre-order Inquiry" class="btn btn--ghost">Pre-order Inquiry</a>
         </div>
+
         <div class="contact-links c-links">
           <a href="mailto:cytan0419@gmail.com" class="contact-link">
-            <svg viewBox="0 0 20 20" fill="none"><path d="M2 4h16v12H2V4zm0 0l8 7 8-7" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M2 4h16v12H2V4zm0 0l8 7 8-7" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+            </svg>
             cytan0419@gmail.com
           </a>
+
           <a href="https://github.com/zoeytan-design" target="_blank" rel="noopener" class="contact-link">
-            <svg viewBox="0 0 20 20" fill="none"><path d="M10 2C5.58 2 2 5.58 2 10c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0018 10c0-4.42-3.58-8-8-8z" fill="currentColor"/></svg>
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M10 2C5.58 2 2 5.58 2 10c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0018 10c0-4.42-3.58-8-8-8z" fill="currentColor"/>
+            </svg>
             zoeytan-design
           </a>
+
           <a href="https://www.linkedin.com/in/zoey-t-5549b215a/" target="_blank" rel="noopener" class="contact-link">
-            <svg viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M6 8v6M6 6v.01M10 14v-3a2 2 0 014 0v3M10 8v6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 20 20" fill="none">
+              <rect x="2" y="2" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M6 8v6M6 6v.01M10 14v-3a2 2 0 014 0v3M10 8v6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
             Zoey Tan
           </a>
         </div>
       </div>
+
       <footer class="footer">
         <p class="footer-brand">Tile &amp; Trace｜花磚流光</p>
         <p class="footer-sub">A Taiwanese cultural product concept by Zoey Tan.</p>
         <p class="footer-copy">&copy; 2026 Zoey Tan. All rights reserved.</p>
       </footer>
-    </div>
+    </section>
 
-  </div><!-- /stage -->
+  </div>
 
-  <!-- Scroll-position progress indicator (right edge) -->
-  <div class="stage-pip-bar" id="pipBar" aria-hidden="true"></div>
+  <div class="stage-pip-bar" id="pipBar"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="script.js"></script>
