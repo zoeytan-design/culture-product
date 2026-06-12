@@ -114,13 +114,15 @@
   const COOLDOWN = 850;
 
   /* ─── PIP BAR ───────────────────────────────────────── */
+  const SCENE_ORDER = ['hero', 'value', 'collection', 'material', 'contact'];
+
   function buildPips() {
     const bar = qs('#pipBar');
     if (!bar) return;
 
     bar.innerHTML = '';
 
-    STEPS.forEach((_, i) => {
+    SCENE_ORDER.forEach((_, i) => {
       const p = document.createElement('span');
       p.className = 'stage-pip' + (i === 0 ? ' active' : '');
       bar.appendChild(p);
@@ -128,8 +130,10 @@
   }
 
   function updatePips() {
+    const currentScene = STEPS[current].scene;
+    const sceneIdx = SCENE_ORDER.indexOf(currentScene);
     qsa('.stage-pip').forEach((p, i) => {
-      p.classList.toggle('active', i === current);
+      p.classList.toggle('active', i === sceneIdx);
     });
   }
 
@@ -879,16 +883,19 @@
 
   let touchY0 = 0;
   let wheelAcc = 0;
+  let wheelTimer = null;
 
   window.addEventListener('wheel', e => {
     e.preventDefault();
 
     wheelAcc += e.deltaY;
 
-    if (Math.abs(wheelAcc) < 50) return;
+    if (wheelTimer) clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => { wheelAcc = 0; }, 300);
+
+    if (Math.abs(wheelAcc) < 40) return;
 
     const dir = wheelAcc > 0 ? 1 : -1;
-
     wheelAcc = 0;
 
     goTo(current + dir, dir);
@@ -994,24 +1001,6 @@
     renderCollectionState(0, false);
     renderMaterialState(0, false);
     resetContact();
-
-    qsa('.scene').forEach(scene => {
-      const isHero = scene.id === 'scene-hero';
-
-      scene.classList.toggle('active', isHero);
-
-      if (G() && !reduced) {
-        G().set(scene, {
-          autoAlpha: isHero ? 1 : 0,
-          pointerEvents: isHero ? 'auto' : 'none',
-          zIndex: isHero ? 3 : 0
-        });
-      } else {
-        scene.style.opacity = isHero ? '1' : '0';
-        scene.style.visibility = isHero ? 'visible' : 'hidden';
-        scene.style.pointerEvents = isHero ? 'auto' : 'none';
-      }
-    });
 
     const hb = qs('#hamburger');
     const mm = qs('#mobileMenu');
